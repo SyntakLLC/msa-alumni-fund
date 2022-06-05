@@ -1,311 +1,792 @@
-<script setup>
-import { ref } from 'vue';
-import { Inertia } from '@inertiajs/inertia';
-import { Head, Link } from '@inertiajs/inertia-vue3';
-import JetApplicationMark from '@/Jetstream/ApplicationMark.vue';
-import JetBanner from '@/Jetstream/Banner.vue';
-import JetDropdown from '@/Jetstream/Dropdown.vue';
-import JetDropdownLink from '@/Jetstream/DropdownLink.vue';
-import JetNavLink from '@/Jetstream/NavLink.vue';
-import JetResponsiveNavLink from '@/Jetstream/ResponsiveNavLink.vue';
-
-defineProps({
-    title: String,
-});
-
-const showingNavigationDropdown = ref(false);
-
-const switchToTeam = (team) => {
-    Inertia.put(route('current-team.update'), {
-        team_id: team.id,
-    }, {
-        preserveState: false,
-    });
-};
-
-const logout = () => {
-    Inertia.post(route('logout'));
-};
-</script>
-
 <template>
-    <div>
-        <Head :title="title" />
+    <div class="min-h-screen">
+        <div class="z-50">
+            <!-- Mobile menu -->
+            <TransitionRoot as="template" :show="open">
+                <Dialog
+                    as="div"
+                    class="relative z-40 lg:hidden"
+                    @close="open = false"
+                >
+                    <TransitionChild
+                        as="template"
+                        enter="transition-opacity ease-linear duration-300"
+                        enter-from="opacity-0"
+                        enter-to="opacity-100"
+                        leave="transition-opacity ease-linear duration-300"
+                        leave-from="opacity-100"
+                        leave-to="opacity-0"
+                    >
+                        <div class="fixed inset-0 bg-black bg-opacity-25" />
+                    </TransitionChild>
 
-        <JetBanner />
+                    <div class="fixed inset-0 flex z-40">
+                        <TransitionChild
+                            as="template"
+                            enter="transition ease-in-out duration-300 transform"
+                            enter-from="-translate-x-full"
+                            enter-to="translate-x-0"
+                            leave="transition ease-in-out duration-300 transform"
+                            leave-from="translate-x-0"
+                            leave-to="-translate-x-full"
+                        >
+                            <DialogPanel
+                                class="relative max-w-xs w-full bg-white shadow-xl pb-12 flex flex-col overflow-y-auto"
+                            >
+                                <div class="px-4 pt-5 pb-2 flex">
+                                    <button
+                                        type="button"
+                                        class="-m-2 p-2 rounded-md inline-flex items-center justify-center text-gray-400"
+                                        @click="open = false"
+                                    >
+                                        <span class="sr-only">Close menu</span>
+                                        <XIcon
+                                            class="h-6 w-6"
+                                            aria-hidden="true"
+                                        />
+                                    </button>
+                                </div>
 
-        <div class="min-h-screen bg-gray-100">
-            <nav class="bg-white border-b border-gray-100">
-                <!-- Primary Navigation Menu -->
-                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div class="flex justify-between h-16">
-                        <div class="flex">
+                                <!-- Links -->
+                                <TabGroup as="div" class="mt-2">
+                                    <div class="border-b border-gray-200">
+                                        <TabList
+                                            class="-mb-px flex px-4 space-x-8"
+                                        >
+                                            <Tab
+                                                as="template"
+                                                v-for="category in navigation.categories"
+                                                :key="category.name"
+                                                v-slot="{ selected }"
+                                            >
+                                                <button
+                                                    :class="[
+                                                        selected
+                                                            ? 'text-brand-600 border-brand-600'
+                                                            : 'text-gray-900 border-transparent',
+                                                        'flex-1 whitespace-nowrap py-4 px-1 border-b-2 text-base font-medium',
+                                                    ]"
+                                                >
+                                                    {{ category.name }}
+                                                </button>
+                                            </Tab>
+                                        </TabList>
+                                    </div>
+                                    <TabPanels as="template">
+                                        <TabPanel
+                                            v-for="category in navigation.categories"
+                                            :key="category.name"
+                                            class="pt-10 pb-8 px-4 space-y-10"
+                                        >
+                                            <div
+                                                class="grid grid-cols-2 gap-x-4"
+                                            >
+                                                <div
+                                                    v-for="item in category.featured"
+                                                    :key="item.name"
+                                                    class="group relative text-sm"
+                                                >
+                                                    <div
+                                                        class="aspect-w-1 aspect-h-1 rounded-lg bg-gray-100 overflow-hidden group-hover:opacity-75"
+                                                    >
+                                                        <img
+                                                            :src="item.imageSrc"
+                                                            :alt="item.imageAlt"
+                                                            class="object-center object-cover"
+                                                        />
+                                                    </div>
+                                                    <a
+                                                        :href="item.href"
+                                                        class="mt-6 block font-medium text-gray-900"
+                                                    >
+                                                        <span
+                                                            class="absolute z-10 inset-0"
+                                                            aria-hidden="true"
+                                                        />
+                                                        {{ item.name }}
+                                                    </a>
+                                                    <p
+                                                        aria-hidden="true"
+                                                        class="mt-1"
+                                                    >
+                                                        Shop now
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <div
+                                                v-for="section in category.sections"
+                                                :key="section.name"
+                                            >
+                                                <p
+                                                    :id="`${category.id}-${section.id}-heading-mobile`"
+                                                    class="font-medium text-gray-900"
+                                                >
+                                                    {{ section.name }}
+                                                </p>
+                                                <ul
+                                                    role="list"
+                                                    :aria-labelledby="`${category.id}-${section.id}-heading-mobile`"
+                                                    class="mt-6 flex flex-col space-y-6"
+                                                >
+                                                    <li
+                                                        v-for="item in section.items"
+                                                        :key="item.name"
+                                                        class="flow-root"
+                                                    >
+                                                        <a
+                                                            :href="item.href"
+                                                            class="-m-2 p-2 block text-gray-500"
+                                                        >
+                                                            {{ item.name }}
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </TabPanel>
+                                    </TabPanels>
+                                </TabGroup>
+
+                                <div
+                                    class="border-t border-gray-200 py-6 px-4 space-y-6"
+                                >
+                                    <div
+                                        v-for="page in navigation.pages"
+                                        :key="page.name"
+                                        class="flow-root"
+                                    >
+                                        <Link
+                                            :href="page.href"
+                                            class="-m-2 p-2 block font-medium text-gray-900"
+                                        >
+                                            {{ page.name }}
+                                        </Link>
+                                    </div>
+                                </div>
+
+                                <div
+                                    class="border-t border-gray-200 py-6 px-4 space-y-6"
+                                >
+                                    <div class="flow-root">
+                                        <a
+                                            href="#"
+                                            class="-m-2 p-2 block font-medium text-gray-900"
+                                            >Sign in</a
+                                        >
+                                    </div>
+                                    <div class="flow-root">
+                                        <a
+                                            href="#"
+                                            class="-m-2 p-2 block font-medium text-gray-900"
+                                            >Create account</a
+                                        >
+                                    </div>
+                                </div>
+
+                                <div class="border-t border-gray-200 py-6 px-4">
+                                    <a
+                                        href="#"
+                                        class="-m-2 p-2 flex items-center"
+                                    >
+                                        <img
+                                            src="https://tailwindui.com/img/flags/flag-canada.svg"
+                                            alt=""
+                                            class="w-5 h-auto block flex-shrink-0"
+                                        />
+                                        <span
+                                            class="ml-3 block text-base font-medium text-gray-900"
+                                        >
+                                            CAD
+                                        </span>
+                                        <span class="sr-only"
+                                            >, change currency</span
+                                        >
+                                    </a>
+                                </div>
+                            </DialogPanel>
+                        </TransitionChild>
+                    </div>
+                </Dialog>
+            </TransitionRoot>
+
+            <header class="relative">
+                <p
+                    class="bg-brand-600 h-10 flex items-center justify-center text-sm font-medium text-white px-4 sm:px-6 lg:px-8"
+                >
+                    We're a new organization, so spread the word!
+                </p>
+
+                <nav
+                    aria-label="Top"
+                    class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
+                >
+                    <div class="border-b border-gray-200">
+                        <div class="h-16 flex items-center">
+                            <button
+                                type="button"
+                                class="bg-white p-2 rounded-md text-gray-400 lg:hidden"
+                                @click="open = true"
+                            >
+                                <span class="sr-only">Open menu</span>
+                                <MenuIcon class="h-6 w-6" aria-hidden="true" />
+                            </button>
+
                             <!-- Logo -->
-                            <div class="shrink-0 flex items-center">
-                                <Link :href="route('dashboard')">
-                                    <JetApplicationMark class="block h-9 w-auto" />
+                            <div class="ml-4 flex lg:ml-0">
+                                <Link :href="route('welcome')">
+                                    <span class="sr-only">Workflow</span>
+                                    <img
+                                        class="h-8 w-auto"
+                                        src="https://tailwindui.com/img/logos/workflow-mark.svg?color=brand&shade=600"
+                                        alt=""
+                                    />
                                 </Link>
                             </div>
 
-                            <!-- Navigation Links -->
-                            <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                                <JetNavLink :href="route('dashboard')" :active="route().current('dashboard')">
-                                    Dashboard
-                                </JetNavLink>
-                            </div>
-                        </div>
+                            <!-- Flyout menus -->
+                            <PopoverGroup
+                                class="hidden lg:ml-8 lg:block lg:self-stretch z-50"
+                            >
+                                <div class="h-full flex space-x-8">
+                                    <Popover
+                                        v-for="category in navigation.categories"
+                                        :key="category.name"
+                                        class="flex"
+                                        v-slot="{ open }"
+                                    >
+                                        <div class="relative flex">
+                                            <PopoverButton
+                                                :class="[
+                                                    open
+                                                        ? 'border-brand-600 text-brand-600'
+                                                        : 'border-transparent text-gray-700 hover:text-gray-800',
+                                                    'relative z-10 flex items-center transition-colors ease-out duration-200 text-sm font-medium border-b-2 -mb-px pt-px',
+                                                ]"
+                                            >
+                                                {{ category.name }}
+                                            </PopoverButton>
+                                        </div>
 
-                        <div class="hidden sm:flex sm:items-center sm:ml-6">
-                            <div class="ml-3 relative">
-                                <!-- Teams Dropdown -->
-                                <JetDropdown v-if="$page.props.jetstream.hasTeamFeatures" align="right" width="60">
-                                    <template #trigger>
-                                        <span class="inline-flex rounded-md">
-                                            <button type="button" class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:bg-gray-50 hover:text-gray-700 focus:outline-none focus:bg-gray-50 active:bg-gray-50 transition">
-                                                {{ $page.props.user.current_team.name }}
+                                        <transition
+                                            enter-active-class="transition ease-out duration-200"
+                                            enter-from-class="opacity-0"
+                                            enter-to-class="opacity-100"
+                                            leave-active-class="transition ease-in duration-150"
+                                            leave-from-class="opacity-100"
+                                            leave-to-class="opacity-0"
+                                        >
+                                            <PopoverPanel
+                                                class="absolute top-full inset-x-0 text-sm text-gray-500"
+                                            >
+                                                <!-- Presentational element used to render the bottom shadow, if we put the shadow on the actual panel it pokes out the top, so we use this shorter element to hide the top of the shadow -->
+                                                <div
+                                                    class="absolute inset-0 top-1/2 bg-white shadow"
+                                                    aria-hidden="true"
+                                                />
 
-                                                <svg
-                                                    class="ml-2 -mr-0.5 h-4 w-4"
-                                                    xmlns="http://www.w3.org/2000/svg"
-                                                    viewBox="0 0 20 20"
-                                                    fill="currentColor"
-                                                >
-                                                    <path fill-rule="evenodd" d="M10 3a1 1 0 01.707.293l3 3a1 1 0 01-1.414 1.414L10 5.414 7.707 7.707a1 1 0 01-1.414-1.414l3-3A1 1 0 0110 3zm-3.707 9.293a1 1 0 011.414 0L10 14.586l2.293-2.293a1 1 0 011.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd" />
-                                                </svg>
-                                            </button>
-                                        </span>
-                                    </template>
-
-                                    <template #content>
-                                        <div class="w-60">
-                                            <!-- Team Management -->
-                                            <template v-if="$page.props.jetstream.hasTeamFeatures">
-                                                <div class="block px-4 py-2 text-xs text-gray-400">
-                                                    Manage Team
-                                                </div>
-
-                                                <!-- Team Settings -->
-                                                <JetDropdownLink :href="route('teams.show', $page.props.user.current_team)">
-                                                    Team Settings
-                                                </JetDropdownLink>
-
-                                                <JetDropdownLink v-if="$page.props.jetstream.canCreateTeams" :href="route('teams.create')">
-                                                    Create New Team
-                                                </JetDropdownLink>
-
-                                                <div class="border-t border-gray-100" />
-
-                                                <!-- Team Switcher -->
-                                                <div class="block px-4 py-2 text-xs text-gray-400">
-                                                    Switch Teams
-                                                </div>
-
-                                                <template v-for="team in $page.props.user.all_teams" :key="team.id">
-                                                    <form @submit.prevent="switchToTeam(team)">
-                                                        <JetDropdownLink as="button">
-                                                            <div class="flex items-center">
-                                                                <svg
-                                                                    v-if="team.id == $page.props.user.current_team_id"
-                                                                    class="mr-2 h-5 w-5 text-green-400"
-                                                                    fill="none"
-                                                                    stroke-linecap="round"
-                                                                    stroke-linejoin="round"
-                                                                    stroke-width="2"
-                                                                    stroke="currentColor"
-                                                                    viewBox="0 0 24 24"
-                                                                ><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-                                                                <div>{{ team.name }}</div>
+                                                <div class="relative bg-white">
+                                                    <div
+                                                        class="max-w-7xl mx-auto px-8"
+                                                    >
+                                                        <div
+                                                            class="grid grid-cols-2 gap-y-10 gap-x-8 py-16"
+                                                        >
+                                                            <div
+                                                                class="col-start-2 grid grid-cols-2 gap-x-8"
+                                                            >
+                                                                <div
+                                                                    v-for="item in category.featured"
+                                                                    :key="
+                                                                        item.name
+                                                                    "
+                                                                    class="group relative text-base sm:text-sm"
+                                                                >
+                                                                    <div
+                                                                        class="aspect-w-1 aspect-h-1 rounded-lg bg-gray-100 overflow-hidden group-hover:opacity-75"
+                                                                    >
+                                                                        <img
+                                                                            :src="
+                                                                                item.imageSrc
+                                                                            "
+                                                                            :alt="
+                                                                                item.imageAlt
+                                                                            "
+                                                                            class="object-center object-cover"
+                                                                        />
+                                                                    </div>
+                                                                    <a
+                                                                        :href="
+                                                                            item.href
+                                                                        "
+                                                                        class="mt-6 block font-medium text-gray-900"
+                                                                    >
+                                                                        <span
+                                                                            class="absolute z-10 inset-0"
+                                                                            aria-hidden="true"
+                                                                        />
+                                                                        {{
+                                                                            item.name
+                                                                        }}
+                                                                    </a>
+                                                                    <p
+                                                                        aria-hidden="true"
+                                                                        class="mt-1"
+                                                                    >
+                                                                        Shop now
+                                                                    </p>
+                                                                </div>
                                                             </div>
-                                                        </JetDropdownLink>
-                                                    </form>
-                                                </template>
-                                            </template>
-                                        </div>
-                                    </template>
-                                </JetDropdown>
-                            </div>
+                                                            <div
+                                                                class="row-start-1 grid grid-cols-3 gap-y-10 gap-x-8 text-sm"
+                                                            >
+                                                                <div
+                                                                    v-for="section in category.sections"
+                                                                    :key="
+                                                                        section.name
+                                                                    "
+                                                                >
+                                                                    <p
+                                                                        :id="`${section.name}-heading`"
+                                                                        class="font-medium text-gray-900"
+                                                                    >
+                                                                        {{
+                                                                            section.name
+                                                                        }}
+                                                                    </p>
+                                                                    <ul
+                                                                        role="list"
+                                                                        :aria-labelledby="`${section.name}-heading`"
+                                                                        class="mt-6 space-y-6 sm:mt-4 sm:space-y-4"
+                                                                    >
+                                                                        <li
+                                                                            v-for="item in section.items"
+                                                                            :key="
+                                                                                item.name
+                                                                            "
+                                                                            class="flex"
+                                                                        >
+                                                                            <a
+                                                                                :href="
+                                                                                    item.href
+                                                                                "
+                                                                                class="hover:text-gray-800"
+                                                                            >
+                                                                                {{
+                                                                                    item.name
+                                                                                }}
+                                                                            </a>
+                                                                        </li>
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </PopoverPanel>
+                                        </transition>
+                                    </Popover>
 
-                            <!-- Settings Dropdown -->
-                            <div class="ml-3 relative">
-                                <JetDropdown align="right" width="48">
-                                    <template #trigger>
-                                        <button v-if="$page.props.jetstream.managesProfilePhotos" class="flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-gray-300 transition">
-                                            <img class="h-8 w-8 rounded-full object-cover" :src="$page.props.user.profile_photo_url" :alt="$page.props.user.name">
-                                        </button>
+                                    <Link
+                                        v-for="page in navigation.pages"
+                                        :key="page.name"
+                                        :href="route(page.href)"
+                                        :class="[
+                                            page.href == route().current()
+                                                ? 'text-brand-600 font-bold underline underline-offset-4'
+                                                : '',
+                                            'flex items-center text-sm font-medium text-gray-700 hover:text-gray-800',
+                                        ]"
+                                    >
+                                        {{ page.name }}
+                                    </Link>
+                                </div>
+                            </PopoverGroup>
 
-                                        <span v-else class="inline-flex rounded-md">
-                                            <button type="button" class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition">
-                                                {{ $page.props.user.name }}
-
-                                                <svg
-                                                    class="ml-2 -mr-0.5 h-4 w-4"
-                                                    xmlns="http://www.w3.org/2000/svg"
-                                                    viewBox="0 0 20 20"
-                                                    fill="currentColor"
-                                                >
-                                                    <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
-                                                </svg>
-                                            </button>
-                                        </span>
-                                    </template>
-
-                                    <template #content>
-                                        <!-- Account Management -->
-                                        <div class="block px-4 py-2 text-xs text-gray-400">
-                                            Manage Account
-                                        </div>
-
-                                        <JetDropdownLink :href="route('profile.show')">
-                                            Profile
-                                        </JetDropdownLink>
-
-                                        <JetDropdownLink v-if="$page.props.jetstream.hasApiFeatures" :href="route('api-tokens.index')">
-                                            API Tokens
-                                        </JetDropdownLink>
-
-                                        <div class="border-t border-gray-100" />
-
-                                        <!-- Authentication -->
-                                        <form @submit.prevent="logout">
-                                            <JetDropdownLink as="button">
-                                                Log Out
-                                            </JetDropdownLink>
-                                        </form>
-                                    </template>
-                                </JetDropdown>
-                            </div>
-                        </div>
-
-                        <!-- Hamburger -->
-                        <div class="-mr-2 flex items-center sm:hidden">
-                            <button class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition" @click="showingNavigationDropdown = ! showingNavigationDropdown">
-                                <svg
-                                    class="h-6 w-6"
-                                    stroke="currentColor"
-                                    fill="none"
-                                    viewBox="0 0 24 24"
+                            <div class="ml-auto flex items-center">
+                                <div
+                                    class="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6"
                                 >
-                                    <path
-                                        :class="{'hidden': showingNavigationDropdown, 'inline-flex': ! showingNavigationDropdown }"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                        stroke-width="2"
-                                        d="M4 6h16M4 12h16M4 18h16"
+                                    <Link
+                                        :href="route('login')"
+                                        class="text-sm font-medium text-gray-700 hover:text-gray-800"
+                                    >
+                                        Sign in
+                                    </Link>
+                                    <span
+                                        class="h-6 w-px bg-gray-200"
+                                        aria-hidden="true"
                                     />
-                                    <path
-                                        :class="{'hidden': ! showingNavigationDropdown, 'inline-flex': showingNavigationDropdown }"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                        stroke-width="2"
-                                        d="M6 18L18 6M6 6l12 12"
-                                    />
-                                </svg>
-                            </button>
-                        </div>
-                    </div>
-                </div>
+                                    <Link
+                                        :href="route('register')"
+                                        class="text-sm font-medium text-gray-700 hover:text-gray-800"
+                                    >
+                                        Create account
+                                    </Link>
+                                </div>
 
-                <!-- Responsive Navigation Menu -->
-                <div :class="{'block': showingNavigationDropdown, 'hidden': ! showingNavigationDropdown}" class="sm:hidden">
-                    <div class="pt-2 pb-3 space-y-1">
-                        <JetResponsiveNavLink :href="route('dashboard')" :active="route().current('dashboard')">
-                            Dashboard
-                        </JetResponsiveNavLink>
-                    </div>
+                                <!-- Search -->
+                                <!-- <div class="flex lg:ml-6">
+                                    <a
+                                        href="#"
+                                        class="p-2 text-gray-400 hover:text-gray-500"
+                                    >
+                                        <span class="sr-only">Search</span>
+                                        <SearchIcon
+                                            class="w-6 h-6"
+                                            aria-hidden="true"
+                                        />
+                                    </a>
+                                </div> -->
 
-                    <!-- Responsive Settings Options -->
-                    <div class="pt-4 pb-1 border-t border-gray-200">
-                        <div class="flex items-center px-4">
-                            <div v-if="$page.props.jetstream.managesProfilePhotos" class="shrink-0 mr-3">
-                                <img class="h-10 w-10 rounded-full object-cover" :src="$page.props.user.profile_photo_url" :alt="$page.props.user.name">
+                                <!-- Cart -->
+                                <!-- <div class="ml-4 flow-root lg:ml-6">
+                                    <a
+                                        href="#"
+                                        class="group -m-2 p-2 flex items-center"
+                                    >
+                                        <ShoppingBagIcon
+                                            class="flex-shrink-0 h-6 w-6 text-gray-400 group-hover:text-gray-500"
+                                            aria-hidden="true"
+                                        />
+                                        <span
+                                            class="ml-2 text-sm font-medium text-gray-700 group-hover:text-gray-800"
+                                            >0</span
+                                        >
+                                        <span class="sr-only"
+                                            >items in cart, view bag</span
+                                        >
+                                    </a>
+                                </div> -->
                             </div>
-
-                            <div>
-                                <div class="font-medium text-base text-gray-800">
-                                    {{ $page.props.user.name }}
-                                </div>
-                                <div class="font-medium text-sm text-gray-500">
-                                    {{ $page.props.user.email }}
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="mt-3 space-y-1">
-                            <JetResponsiveNavLink :href="route('profile.show')" :active="route().current('profile.show')">
-                                Profile
-                            </JetResponsiveNavLink>
-
-                            <JetResponsiveNavLink v-if="$page.props.jetstream.hasApiFeatures" :href="route('api-tokens.index')" :active="route().current('api-tokens.index')">
-                                API Tokens
-                            </JetResponsiveNavLink>
-
-                            <!-- Authentication -->
-                            <form method="POST" @submit.prevent="logout">
-                                <JetResponsiveNavLink as="button">
-                                    Log Out
-                                </JetResponsiveNavLink>
-                            </form>
-
-                            <!-- Team Management -->
-                            <template v-if="$page.props.jetstream.hasTeamFeatures">
-                                <div class="border-t border-gray-200" />
-
-                                <div class="block px-4 py-2 text-xs text-gray-400">
-                                    Manage Team
-                                </div>
-
-                                <!-- Team Settings -->
-                                <JetResponsiveNavLink :href="route('teams.show', $page.props.user.current_team)" :active="route().current('teams.show')">
-                                    Team Settings
-                                </JetResponsiveNavLink>
-
-                                <JetResponsiveNavLink v-if="$page.props.jetstream.canCreateTeams" :href="route('teams.create')" :active="route().current('teams.create')">
-                                    Create New Team
-                                </JetResponsiveNavLink>
-
-                                <div class="border-t border-gray-200" />
-
-                                <!-- Team Switcher -->
-                                <div class="block px-4 py-2 text-xs text-gray-400">
-                                    Switch Teams
-                                </div>
-
-                                <template v-for="team in $page.props.user.all_teams" :key="team.id">
-                                    <form @submit.prevent="switchToTeam(team)">
-                                        <JetResponsiveNavLink as="button">
-                                            <div class="flex items-center">
-                                                <svg
-                                                    v-if="team.id == $page.props.user.current_team_id"
-                                                    class="mr-2 h-5 w-5 text-green-400"
-                                                    fill="none"
-                                                    stroke-linecap="round"
-                                                    stroke-linejoin="round"
-                                                    stroke-width="2"
-                                                    stroke="currentColor"
-                                                    viewBox="0 0 24 24"
-                                                ><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-                                                <div>{{ team.name }}</div>
-                                            </div>
-                                        </JetResponsiveNavLink>
-                                    </form>
-                                </template>
-                            </template>
                         </div>
                     </div>
-                </div>
-            </nav>
-
-            <!-- Page Heading -->
-            <header v-if="$slots.header" class="bg-white shadow">
-                <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                    <slot name="header" />
-                </div>
+                </nav>
             </header>
-
-            <!-- Page Content -->
-            <main>
-                <slot />
-            </main>
         </div>
+
+        <main>
+            <slot />
+        </main>
+
+        <footer
+            aria-labelledby="footer-heading"
+            class="bg-white border-t border-gray-200"
+        >
+            <h2 id="footer-heading" class="sr-only">Footer</h2>
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="py-20">
+                    <div
+                        class="grid grid-cols-1 md:grid-cols-12 md:grid-flow-col md:gap-x-8 md:gap-y-16 md:auto-rows-min"
+                    >
+                        <!-- Image section -->
+                        <div
+                            class="col-span-1 md:col-span-2 lg:row-start-1 lg:col-start-1"
+                        >
+                            <img
+                                src="https://tailwindui.com/img/logos/workflow-mark.svg?color=brand&shade=600"
+                                alt=""
+                                class="h-8 w-auto"
+                            />
+                        </div>
+
+                        <!-- Sitemap sections -->
+                        <div
+                            class="mt-10 col-span-6 grid grid-cols-2 gap-8 sm:grid-cols-3 md:mt-0 md:row-start-1 md:col-start-3 md:col-span-8 lg:col-start-2 lg:col-span-6"
+                        >
+                            <div
+                                class="grid grid-cols-1 gap-y-12 sm:col-span-2 sm:grid-cols-2 sm:gap-x-8"
+                            >
+                                <div>
+                                    <h3
+                                        class="text-sm font-medium text-gray-900"
+                                    >
+                                        Products
+                                    </h3>
+                                    <ul role="list" class="mt-6 space-y-6">
+                                        <li
+                                            v-for="item in footerNavigation.products"
+                                            :key="item.name"
+                                            class="text-sm"
+                                        >
+                                            <a
+                                                :href="item.href"
+                                                class="text-gray-500 hover:text-gray-600"
+                                            >
+                                                {{ item.name }}
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <h3
+                                        class="text-sm font-medium text-gray-900"
+                                    >
+                                        Company
+                                    </h3>
+                                    <ul role="list" class="mt-6 space-y-6">
+                                        <li
+                                            v-for="item in footerNavigation.company"
+                                            :key="item.name"
+                                            class="text-sm"
+                                        >
+                                            <a
+                                                :href="item.href"
+                                                class="text-gray-500 hover:text-gray-600"
+                                            >
+                                                {{ item.name }}
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div>
+                                <h3 class="text-sm font-medium text-gray-900">
+                                    Customer Service
+                                </h3>
+                                <ul role="list" class="mt-6 space-y-6">
+                                    <li
+                                        v-for="item in footerNavigation.customerService"
+                                        :key="item.name"
+                                        class="text-sm"
+                                    >
+                                        <a
+                                            :href="item.href"
+                                            class="text-gray-500 hover:text-gray-600"
+                                        >
+                                            {{ item.name }}
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Newsletter section -->
+                        <div
+                            class="mt-12 md:mt-0 md:row-start-2 md:col-start-3 md:col-span-8 lg:row-start-1 lg:col-start-9 lg:col-span-4"
+                        >
+                            <h3 class="text-sm font-medium text-gray-900">
+                                Sign up for our newsletter
+                            </h3>
+                            <p class="mt-6 text-sm text-gray-500">
+                                The latest deals and savings, sent to your inbox
+                                weekly.
+                            </p>
+                            <form class="mt-2 flex sm:max-w-md">
+                                <label for="email-address" class="sr-only"
+                                    >Email address</label
+                                >
+                                <input
+                                    id="email-address"
+                                    type="text"
+                                    autocomplete="email"
+                                    required=""
+                                    class="appearance-none min-w-0 w-full bg-white border border-gray-300 rounded-md shadow-sm py-2 px-4 text-base text-gray-900 placeholder-gray-500 focus:outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500"
+                                />
+                                <div class="ml-4 flex-shrink-0">
+                                    <button
+                                        type="submit"
+                                        class="w-full bg-brand-600 border border-transparent rounded-md shadow-sm py-2 px-4 flex items-center justify-center text-base font-medium text-white hover:bg-brand-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-500"
+                                    >
+                                        Sign up
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="border-t border-gray-100 py-10 text-center">
+                    <p class="text-sm text-gray-500">
+                        &copy; 2021 Workflow, Inc. All rights reserved.
+                    </p>
+                </div>
+            </div>
+        </footer>
     </div>
 </template>
+
+<script setup>
+import { ref } from "vue";
+import {
+    Dialog,
+    DialogPanel,
+    Popover,
+    PopoverButton,
+    PopoverGroup,
+    PopoverPanel,
+    Tab,
+    TabGroup,
+    TabList,
+    TabPanel,
+    TabPanels,
+    TransitionChild,
+    TransitionRoot,
+} from "@headlessui/vue";
+import {
+    MenuIcon,
+    SearchIcon,
+    ShoppingBagIcon,
+    XIcon,
+} from "@heroicons/vue/outline";
+import { Link } from "@inertiajs/inertia-vue3";
+
+const navigation = {
+    // categories: [
+    //     {
+    //         id: "women",
+    //         name: "Women",
+    //         featured: [
+    //             {
+    //                 name: "New Arrivals",
+    //                 href: "#",
+    //                 imageSrc:
+    //                     "https://tailwindui.com/img/ecommerce-images/mega-menu-category-01.jpg",
+    //                 imageAlt:
+    //                     "Models sitting back to back, wearing Basic Tee in black and bone.",
+    //             },
+    //             {
+    //                 name: "Basic Tees",
+    //                 href: "#",
+    //                 imageSrc:
+    //                     "https://tailwindui.com/img/ecommerce-images/mega-menu-category-02.jpg",
+    //                 imageAlt:
+    //                     "Close up of Basic Tee fall bundle with off-white, ochre, olive, and black tees.",
+    //             },
+    //         ],
+    //         sections: [
+    //             {
+    //                 id: "clothing",
+    //                 name: "Clothing",
+    //                 items: [
+    //                     { name: "Tops", href: "#" },
+    //                     { name: "Dresses", href: "#" },
+    //                     { name: "Pants", href: "#" },
+    //                     { name: "Denim", href: "#" },
+    //                     { name: "Sweaters", href: "#" },
+    //                     { name: "T-Shirts", href: "#" },
+    //                     { name: "Jackets", href: "#" },
+    //                     { name: "Activewear", href: "#" },
+    //                     { name: "Browse All", href: "#" },
+    //                 ],
+    //             },
+    //             {
+    //                 id: "accessories",
+    //                 name: "Accessories",
+    //                 items: [
+    //                     { name: "Watches", href: "#" },
+    //                     { name: "Wallets", href: "#" },
+    //                     { name: "Bags", href: "#" },
+    //                     { name: "Sunglasses", href: "#" },
+    //                     { name: "Hats", href: "#" },
+    //                     { name: "Belts", href: "#" },
+    //                 ],
+    //             },
+    //             {
+    //                 id: "brands",
+    //                 name: "Brands",
+    //                 items: [
+    //                     { name: "Full Nelson", href: "#" },
+    //                     { name: "My Way", href: "#" },
+    //                     { name: "Re-Arranged", href: "#" },
+    //                     { name: "Counterfeit", href: "#" },
+    //                     { name: "Significant Other", href: "#" },
+    //                 ],
+    //             },
+    //         ],
+    //     },
+    //     {
+    //         id: "men",
+    //         name: "Men",
+    //         featured: [
+    //             {
+    //                 name: "New Arrivals",
+    //                 href: "#",
+    //                 imageSrc:
+    //                     "https://tailwindui.com/img/ecommerce-images/product-page-04-detail-product-shot-01.jpg",
+    //                 imageAlt:
+    //                     "Drawstring top with elastic loop closure and textured interior padding.",
+    //             },
+    //             {
+    //                 name: "Artwork Tees",
+    //                 href: "#",
+    //                 imageSrc:
+    //                     "https://tailwindui.com/img/ecommerce-images/category-page-02-image-card-06.jpg",
+    //                 imageAlt:
+    //                     "Three shirts in gray, white, and blue arranged on table with same line drawing of hands and shapes overlapping on front of shirt.",
+    //             },
+    //         ],
+    //         sections: [
+    //             {
+    //                 id: "clothing",
+    //                 name: "Clothing",
+    //                 items: [
+    //                     { name: "Tops", href: "#" },
+    //                     { name: "Pants", href: "#" },
+    //                     { name: "Sweaters", href: "#" },
+    //                     { name: "T-Shirts", href: "#" },
+    //                     { name: "Jackets", href: "#" },
+    //                     { name: "Activewear", href: "#" },
+    //                     { name: "Browse All", href: "#" },
+    //                 ],
+    //             },
+    //             {
+    //                 id: "accessories",
+    //                 name: "Accessories",
+    //                 items: [
+    //                     { name: "Watches", href: "#" },
+    //                     { name: "Wallets", href: "#" },
+    //                     { name: "Bags", href: "#" },
+    //                     { name: "Sunglasses", href: "#" },
+    //                     { name: "Hats", href: "#" },
+    //                     { name: "Belts", href: "#" },
+    //                 ],
+    //             },
+    //             {
+    //                 id: "brands",
+    //                 name: "Brands",
+    //                 items: [
+    //                     { name: "Re-Arranged", href: "#" },
+    //                     { name: "Counterfeit", href: "#" },
+    //                     { name: "Full Nelson", href: "#" },
+    //                     { name: "My Way", href: "#" },
+    //                 ],
+    //             },
+    //         ],
+    //     },
+    // ],
+    pages: [
+        { name: "Home", href: "msa.index" },
+        { name: "Our Mission", href: "mission" },
+        { name: "Impact", href: "impact" },
+        { name: "Contact", href: "contact" },
+    ],
+};
+
+const footerNavigation = {
+    products: [
+        { name: "Bags", href: "#" },
+        { name: "Tees", href: "#" },
+        { name: "Objects", href: "#" },
+        { name: "Home Goods", href: "#" },
+        { name: "Accessories", href: "#" },
+    ],
+    company: [
+        { name: "Who we are", href: "#" },
+        { name: "Sustainability", href: "#" },
+        { name: "Press", href: "#" },
+        { name: "Careers", href: "#" },
+        { name: "Terms & Conditions", href: "#" },
+        { name: "Privacy", href: "#" },
+    ],
+    customerService: [
+        { name: "Contact", href: "#" },
+        { name: "Shipping", href: "#" },
+        { name: "Returns", href: "#" },
+        { name: "Warranty", href: "#" },
+        { name: "Secure Payments", href: "#" },
+        { name: "FAQ", href: "#" },
+        { name: "Find a store", href: "#" },
+    ],
+};
+
+const open = ref(false);
+</script>
