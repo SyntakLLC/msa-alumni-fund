@@ -99,7 +99,7 @@
                                                             v-for="(
                                                                 option,
                                                                 optionIdx
-                                                            ) in section.options"
+                                                            ) in cityFilters"
                                                             :key="option.value"
                                                             class="flex items-center"
                                                         >
@@ -110,6 +110,11 @@
                                                                     option.value
                                                                 "
                                                                 type="checkbox"
+                                                                v-model="
+                                                                    cityFilters[
+                                                                        optionIdx
+                                                                    ].checked
+                                                                "
                                                                 class="h-4 w-4 border-gray-300 rounded text-brand-600 focus:ring-brand-500"
                                                             />
                                                             <label
@@ -156,6 +161,7 @@
                 </div>
 
                 <main class="max-w-2xl mx-auto px-4 lg:max-w-7xl lg:px-8">
+                    <!-- Title -->
                     <div class="border-b border-gray-200 py-10">
                         <page-title> Discover MSA's </page-title>
                         <page-subtitle>
@@ -164,9 +170,11 @@
                         </page-subtitle>
                     </div>
 
+                    <!-- Content -->
                     <div
                         class="pt-12 pb-24 lg:grid lg:grid-cols-4 lg:gap-x-8 xl:grid-cols-5"
                     >
+                        <!-- Filters sidebar -->
                         <aside>
                             <h2 class="sr-only">Filters</h2>
 
@@ -205,15 +213,19 @@
                                                 <div
                                                     v-for="(
                                                         option, optionIdx
-                                                    ) in section.options"
+                                                    ) in cityFilters"
                                                     :key="option.value"
                                                     class="flex items-center"
                                                 >
                                                     <input
                                                         :id="`${section.id}-${optionIdx}`"
                                                         :name="`${section.id}[]`"
-                                                        :value="option.value"
                                                         type="checkbox"
+                                                        v-model="
+                                                            cityFilters[
+                                                                optionIdx
+                                                            ].checked
+                                                        "
                                                         class="h-4 w-4 border-gray-300 rounded text-brand-600 focus:ring-brand-500"
                                                     />
                                                     <label
@@ -230,6 +242,7 @@
                             </div>
                         </aside>
 
+                        <!-- Grid -->
                         <section
                             aria-labelledby="product-heading"
                             class="mt-6 lg:mt-0 lg:col-span-3 xl:col-span-4"
@@ -239,10 +252,11 @@
                             </h2>
 
                             <div
+                                v-if="filterMsas(msas).length"
                                 class="grid grid-cols-1 gap-y-4 sm:grid-cols-2 sm:gap-x-6 sm:gap-y-10 lg:gap-x-8 xl:grid-cols-3"
                             >
                                 <Link
-                                    v-for="msa in msas"
+                                    v-for="msa in filterMsas(msas)"
                                     :href="route('msa.show', msa.uuid)"
                                     :key="msa.id"
                                     class="group relative bg-white border border-gray-200 rounded-lg flex flex-col overflow-hidden"
@@ -290,6 +304,45 @@
                                     </div>
                                 </Link>
                             </div>
+
+                            <div v-else class="text-center">
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    class="mx-auto h-12 w-12 text-gray-400"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    stroke="currentColor"
+                                    stroke-width="1"
+                                >
+                                    <path
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                                    />
+                                </svg>
+
+                                <h3
+                                    class="mt-2 text-sm font-medium text-gray-900"
+                                >
+                                    Whoops!
+                                </h3>
+                                <p class="mt-3 text-sm text-gray-500">
+                                    Looks like we don't have any MSA's from
+                                    there. If you know any, help them sign up!
+                                </p>
+                                <!-- <div class="mt-6">
+                                    <button
+                                        type="button"
+                                        class="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-brand-600 hover:bg-brand-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-500"
+                                    >
+                                        <PlusIcon
+                                            class="-ml-1 mr-2 h-5 w-5"
+                                            aria-hidden="true"
+                                        />
+                                        New Project
+                                    </button>
+                                </div> -->
+                            </div>
                         </section>
                     </div>
                 </main>
@@ -324,80 +377,35 @@ import {
     ShoppingBagIcon,
     XIcon,
 } from "@heroicons/vue/outline";
-import { ChevronDownIcon, PlusSmIcon } from "@heroicons/vue/solid";
+import { ChevronDownIcon, PlusSmIcon, PlusIcon } from "@heroicons/vue/solid";
 import AppLayout from "@/Layouts/AppLayout.vue";
 import PageTitle from "@/Components/texts/PageTitle.vue";
 import PageSubtitle from "../Components/texts/PageSubtitle.vue";
 import { Link } from "@inertiajs/inertia-vue3";
 
-const breadcrumbs = [{ id: 1, name: "Men", href: "#" }];
 const filters = [
     {
         id: "cities",
         name: "Cities",
         options: [
-            { value: "boston", label: "Boston" },
-            { value: "new york", label: "New York" },
-            { value: "chicago", label: "Chicago" },
-            { value: "losAngeles", label: "Los Angeles" },
-            { value: "miami", label: "Miami" },
-            { value: "dallas", label: "Dallas" },
+            { value: "boston", label: "Boston", checked: false },
+            { value: "new york", label: "New York", checked: false },
+            { value: "chicago", label: "Chicago", checked: false },
+            { value: "losAngeles", label: "Los Angeles", checked: false },
+            { value: "miami", label: "Miami", checked: false },
+            { value: "dallas", label: "Dallas", checked: false },
         ],
     },
 ];
-const products = [
-    {
-        id: 1,
-        name: "ISBU",
-        href: "#",
-        city: "Boston University",
-        description:
-            "Get the full lineup of our Basic Tees. Have a fresh shirt all week, and an extra for laundry day.",
-        options: "8 colors",
-        imageSrc:
-            "https://www.cabrini.edu/globalassets/images-blog/2018-19/ayannah/group-photo-blog.jpg",
-        imageAlt:
-            "Eight shirts arranged on table in black, olive, grey, blue, white, red, mustard, and green.",
-    },
-    {
-        id: 2,
-        name: "ISNU",
-        href: "#",
-        city: "Northeastern University",
-        description:
-            "Look like a visionary CEO and wear the same black t-shirt every day.",
-        options: "Black",
-        imageSrc:
-            "https://gwhsnews.org/wp-content/uploads/2020/04/msa-900x675.jpg",
-        imageAlt: "Front of plain black t-shirt.",
-    },
-    {
-        id: 1,
-        name: "ISBU",
-        href: "#",
-        city: "Boston University",
-        description:
-            "Get the full lineup of our Basic Tees. Have a fresh shirt all week, and an extra for laundry day.",
-        options: "8 colors",
-        imageSrc:
-            "https://www.cabrini.edu/globalassets/images-blog/2018-19/ayannah/group-photo-blog.jpg",
-        imageAlt:
-            "Eight shirts arranged on table in black, olive, grey, blue, white, red, mustard, and green.",
-    },
-    {
-        id: 2,
-        name: "ISNU",
-        href: "#",
-        city: "Northeastern University",
-        description:
-            "Look like a visionary CEO and wear the same black t-shirt every day.",
-        options: "Black",
-        imageSrc:
-            "https://gwhsnews.org/wp-content/uploads/2020/04/msa-900x675.jpg",
-        imageAlt: "Front of plain black t-shirt.",
-    },
-    // More products...
-];
+
+const cityFilters = ref([
+    { value: "boston", label: "Boston", checked: false },
+    { value: "new york", label: "New York", checked: false },
+    { value: "chicago", label: "Chicago", checked: false },
+    { value: "losAngeles", label: "Los Angeles", checked: false },
+    { value: "miami", label: "Miami", checked: false },
+    { value: "dallas", label: "Dallas", checked: false },
+]);
 
 const mobileMenuOpen = ref(false);
 const mobileFiltersOpen = ref(false);
@@ -405,4 +413,16 @@ const mobileFiltersOpen = ref(false);
 const props = defineProps({
     msas: Array,
 });
+
+const filterMsas = (msas) => {
+    const checkedCities = cityFilters.value.map((filter) => {
+        if (filter.checked) return filter.label;
+    });
+
+    if (checkedCities.every((v) => v === undefined)) return msas;
+
+    return msas.filter((msa) => {
+        return checkedCities.includes(msa.city);
+    });
+};
 </script>
