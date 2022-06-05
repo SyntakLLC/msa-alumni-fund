@@ -346,20 +346,16 @@
                             </form>
 
                             <section
+                                v-if="objectives.length"
                                 aria-labelledby="details-heading"
                                 class="mt-12"
                             >
                                 <h2 id="details-heading" class="sr-only">
-                                    Additional details
+                                    Annual Objectives
                                 </h2>
 
                                 <div class="border-t divide-y divide-gray-200">
-                                    <Disclosure
-                                        as="div"
-                                        v-for="detail in product.details"
-                                        :key="detail.name"
-                                        v-slot="{ open }"
-                                    >
+                                    <Disclosure as="div" v-slot="{ open }">
                                         <h3>
                                             <DisclosureButton
                                                 class="group relative w-full py-6 flex justify-between items-center text-left"
@@ -372,7 +368,7 @@
                                                         'text-sm font-medium',
                                                     ]"
                                                 >
-                                                    {{ detail.name }}
+                                                    Annual Objectives
                                                 </span>
                                                 <span
                                                     class="ml-6 flex items-center"
@@ -396,10 +392,10 @@
                                         >
                                             <ul role="list">
                                                 <li
-                                                    v-for="item in detail.items"
-                                                    :key="item"
+                                                    v-for="objective in objectives"
+                                                    :key="objective"
                                                 >
-                                                    {{ item }}
+                                                    {{ objective }}
                                                 </li>
                                             </ul>
                                         </DisclosurePanel>
@@ -523,81 +519,13 @@ import PageTitle from "@/Components/texts/PageTitle.vue";
 import PageSubtitle from "@/Components/texts/PageSubtitle.vue";
 import PrimaryButton from "@/Components/PrimaryButton.vue";
 
-const product = {
-    name: "ISBU",
-    college: "Boston University",
-    rating: 4,
-    images: [
-        {
-            id: 1,
-            name: "MSA Image",
-            src: "https://wmpeople.wm.edu/asset/index/muslim/2015grouppic",
-            alt: "An MSA.",
-        },
-        {
-            id: 2,
-            name: "MSA Image",
-            src: "https://www.downstate.edu/education-training/student-services/student-organizations/_images/msab.jpeg",
-            alt: "An MSA.",
-        },
-        {
-            id: 3,
-            name: "MSA Image",
-            src: "https://www.downstate.edu/education-training/student-services/student-organizations/_images/muslim_students_assoc.jpg",
-            alt: "An MSA.",
-        },
-        // More images...
-    ],
-    colors: [
-        {
-            name: "Washed Black",
-            bgColor: "bg-gray-700",
-            selectedColor: "ring-gray-700",
-        },
-        { name: "White", bgColor: "bg-white", selectedColor: "ring-gray-400" },
-        {
-            name: "Washed Gray",
-            bgColor: "bg-gray-500",
-            selectedColor: "ring-gray-500",
-        },
-    ],
-    description:
-        "The Muslim Student Association (MSA) at Boston University is a student-led organization dedicated to promoting understanding and awareness of Islam and Muslims on campus and in the community. MSA strives to create an inclusive environment for all students, regardless of religious affiliation, through educational programming, social events, and community service initiatives.",
-    details: [
-        {
-            name: "Annual Objectives",
-            items: [
-                "Multiple strap configurations",
-                "Spacious interior with top zip",
-                "Leather handle and tabs",
-                "Interior dividers",
-                "Stainless strap loops",
-                "Double stitched construction",
-                "Water-resistant",
-            ],
-        },
-        // More sections...
-    ],
-};
-const relatedProducts = [
-    {
-        id: 1,
-        name: "ISNU",
-        href: "#",
-        imageSrc:
-            "https://gwhsnews.org/wp-content/uploads/2020/04/msa-900x675.jpg",
-        imageAlt: "An MSA",
-        college: "Northeastern University",
-    },
-    // More products...
-];
 const open = ref(false);
-const selectedColor = ref(product.colors[0]);
 
 const props = defineProps({
     msa: Object,
     nearbyMsas: Array,
     images: Array,
+    objectives: Array,
 });
 
 const images = [props.msa.primary_image_url, ...props.images];

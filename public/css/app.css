@@ -2321,6 +2321,14 @@ select {
   --tw-text-opacity: 1;
   color: rgb(224 242 254 / var(--tw-text-opacity));
 }
+.text-brand-700 {
+  --tw-text-opacity: 1;
+  color: rgb(3 105 161 / var(--tw-text-opacity));
+}
+.text-brand-800 {
+  --tw-text-opacity: 1;
+  color: rgb(7 89 133 / var(--tw-text-opacity));
+}
 .text-opacity-40 {
   --tw-text-opacity: 0.4;
 }
@@ -2550,6 +2558,10 @@ select {
   --tw-bg-opacity: 1;
   background-color: rgb(67 56 202 / var(--tw-bg-opacity));
 }
+.hover\:bg-brand-400:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(56 189 248 / var(--tw-bg-opacity));
+}
 .hover\:text-gray-500:hover {
   --tw-text-opacity: 1;
   color: rgb(107 114 128 / var(--tw-text-opacity));
@@ -2705,6 +2717,9 @@ select {
 }
 .focus\:ring-offset-brand-500:focus {
   --tw-ring-offset-color: #0ea5e9;
+}
+.focus\:ring-offset-brand-600:focus {
+  --tw-ring-offset-color: #0284c7;
 }
 .active\:bg-gray-100:active {
   --tw-bg-opacity: 1;
@@ -3062,6 +3077,16 @@ select {
   .sm\:py-8 {
     padding-top: 2rem;
     padding-bottom: 2rem;
+  }
+
+  .sm\:py-24 {
+    padding-top: 6rem;
+    padding-bottom: 6rem;
+  }
+
+  .sm\:px-12 {
+    padding-left: 3rem;
+    padding-right: 3rem;
   }
 
   .sm\:pt-0 {

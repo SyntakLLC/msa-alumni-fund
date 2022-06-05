@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Image;
 use App\Models\Msa;
+use App\Models\Objective;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -53,20 +54,30 @@ class MsaController extends Controller
      */
     public function show(Msa $msa)
     {
+        // displayed at the bottom of the page
         $nearby_msas = Msa::where("city", "=", $msa->city)
             ->where("school", "!=", $msa->school)
             ->get();
 
+        // used in the msa image gallery
         $images = Image::where("msa_uuid", "=", $msa->uuid)
             ->get()
             ->map(function ($image) {
                 return $image->image_url;
             });
 
+        // used in the features accordion
+        $objectives = Objective::where("msa_uuid", "=", $msa->uuid)
+            ->get()
+            ->map(function ($image) {
+                return $image->text;
+            });
+
         return Inertia::render("MSA/Show", [
             "msa" => $msa,
             "nearbyMsas" => $nearby_msas,
             "images" => $images,
+            "objectives" => $objectives,
         ]);
     }
 

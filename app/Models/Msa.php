@@ -12,10 +12,18 @@ class Msa extends Model
     use UsesUuidKey;
 
     /*
-     * Get a collection of this Msa's images
+     * Every Msa has a collection of images (can be empty).
      */
     public function images()
     {
         return $this->hasMany(Image::class);
+    }
+
+    /*
+     * They also have a collection of objectives (can also be empty).
+     */
+    public function objectives()
+    {
+        return $this->hasMany(Objective::class);
     }
 }
