@@ -276,7 +276,11 @@
                                         <h3
                                             class="text-sm font-medium text-gray-900"
                                         >
-                                            <a :href="route('show')">
+                                            <a
+                                                :href="
+                                                    route('msa.show', msa.uuid)
+                                                "
+                                            >
                                                 <span
                                                     aria-hidden="true"
                                                     class="absolute inset-0"

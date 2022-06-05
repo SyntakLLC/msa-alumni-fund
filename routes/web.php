@@ -31,14 +31,6 @@ Route::middleware([
     "verified",
 ])->group(function () {});
 
-Route::get("/msas", function () {
-    return Inertia::render("Dashboard");
-})->name("msas");
-
-Route::get("/xyz", function () {
-    return Inertia::render("MSA/Show");
-})->name("show");
-
 Route::get("/mission", function () {
     return Inertia::render("Company/Mission");
 })->name("mission");

@@ -10,4 +10,12 @@ class Msa extends Model
 {
     use HasFactory;
     use UsesUuidKey;
+
+    /*
+     * Get a collection of this Msa's images
+     */
+    public function images()
+    {
+        return $this->hasMany(Image::class);
+    }
 }

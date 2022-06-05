@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Image;
 use App\Models\Msa;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -16,7 +17,10 @@ class MsaController extends Controller
     public function index()
     {
         return Inertia::render("Dashboard", [
-            "msas" => Msa::all(),
+            "msas" => Msa::get()
+                ->sortBy("city")
+                ->values()
+                ->all(),
         ]);
     }
 
@@ -49,8 +53,20 @@ class MsaController extends Controller
      */
     public function show(Msa $msa)
     {
+        $nearby_msas = Msa::where("city", "=", $msa->city)
+            ->where("school", "!=", $msa->school)
+            ->get();
+
+        $images = Image::where("msa_uuid", "=", $msa->uuid)
+            ->get()
+            ->map(function ($image) {
+                return $image->image_url;
+            });
+
         return Inertia::render("MSA/Show", [
             "msa" => $msa,
+            "nearbyMsas" => $nearby_msas,
+            "images" => $images,
         ]);
     }
 

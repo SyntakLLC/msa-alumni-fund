@@ -409,68 +409,73 @@
                         </div>
                     </div>
 
+                    <!-- Section for Nearby MSA's -->
                     <section
                         aria-labelledby="related-heading"
                         class="mt-10 border-t border-gray-200 py-16 px-4 sm:px-0"
                     >
-                        <h2
-                            id="related-heading"
-                            class="text-xl font-bold text-gray-900"
-                        >
-                            People also support
-                        </h2>
-
-                        <div
-                            class="mt-8 grid grid-cols-1 gap-y-12 sm:grid-cols-2 sm:gap-x-6 lg:grid-cols-4 xl:gap-x-8"
-                        >
-                            <div
-                                v-for="product in relatedProducts"
-                                :key="product.id"
+                        <!-- If there are nearby MSA's -->
+                        <div v-if="nearbyMsas.length">
+                            <h2
+                                id="related-heading"
+                                class="text-xl font-bold text-gray-900"
                             >
-                                <div class="relative">
-                                    <div
-                                        class="relative w-full h-72 rounded-lg overflow-hidden"
-                                    >
-                                        <img
-                                            :src="product.imageSrc"
-                                            :alt="product.imageAlt"
-                                            class="w-full h-full object-center object-cover"
-                                        />
-                                    </div>
-                                    <!-- <div class="relative mt-4">
+                                People also support
+                            </h2>
+
+                            <div
+                                class="mt-8 grid grid-cols-1 gap-y-12 sm:grid-cols-2 sm:gap-x-6 lg:grid-cols-4 xl:gap-x-8"
+                            >
+                                <Link
+                                    v-for="msa in nearbyMsas"
+                                    :key="msa.uuid"
+                                    :href="route('msa.show', msa.uuid)"
+                                >
+                                    <div class="relative">
+                                        <div
+                                            class="relative w-full h-72 rounded-lg overflow-hidden"
+                                        >
+                                            <img
+                                                :src="msa.primary_image_url"
+                                                alt="Nearby MSA"
+                                                class="w-full h-full object-center object-cover"
+                                            />
+                                        </div>
+                                        <!-- <div class="relative mt-4">
                                         <h3
                                             class="text-sm font-medium text-gray-900"
                                         >
-                                            {{ product.name }}
+                                            {{ msa.name }}
                                         </h3>
                                     </div> -->
-                                    <div
-                                        class="absolute top-0 inset-x-0 h-72 rounded-lg p-4 flex items-end justify-end overflow-hidden"
-                                    >
                                         <div
-                                            aria-hidden="true"
-                                            class="absolute inset-x-0 bottom-0 h-36 bg-gradient-to-t from-black opacity-50"
-                                        />
-                                        <p
-                                            class="relative text-lg font-semibold text-white"
+                                            class="absolute top-0 inset-x-0 h-72 rounded-lg p-4 flex items-end justify-end overflow-hidden"
                                         >
-                                            {{ product.college }}
-                                        </p>
+                                            <div
+                                                aria-hidden="true"
+                                                class="absolute inset-x-0 bottom-0 h-36 bg-gradient-to-t from-black opacity-50"
+                                            />
+                                            <p
+                                                class="relative text-lg font-semibold text-white"
+                                            >
+                                                {{ msa.school }}
+                                            </p>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="mt-6">
-                                    <a
-                                        :href="product.href"
-                                        class="relative flex bg-gray-100 border border-transparent rounded-md py-2 px-8 items-center justify-center text-sm font-medium text-gray-900 hover:bg-gray-200"
-                                    >
-                                        Take a look
-                                        <span class="sr-only"
-                                            >, {{ product.name }}</span
-                                        ></a
-                                    >
-                                </div>
+                                </Link>
                             </div>
                         </div>
+
+                        <!-- If there are none -->
+                        <h2
+                            v-else
+                            id="related-heading"
+                            class="text-xl font-bold text-gray-900"
+                        >
+                            {{
+                                `${msa.name} is the only MSA we have from ${msa.city}.`
+                            }}
+                        </h2>
                     </section>
                 </div>
             </main>
@@ -591,11 +596,9 @@ const selectedColor = ref(product.colors[0]);
 
 const props = defineProps({
     msa: Object,
+    nearbyMsas: Array,
+    images: Array,
 });
 
-const images = [
-    props.msa.primary_image_url,
-    "https://www.downstate.edu/education-training/student-services/student-organizations/_images/msab.jpeg",
-    "https://www.downstate.edu/education-training/student-services/student-organizations/_images/muslim_students_assoc.jpg",
-];
+const images = [props.msa.primary_image_url, ...props.images];
 </script>
