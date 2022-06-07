@@ -1,9 +1,8 @@
 <?php
 
-use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
-use App\Http\Controllers\MSAController;
+use App\Http\Controllers\MsaController;
+use App\Http\Controllers\HomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,31 +15,19 @@ use App\Http\Controllers\MSAController;
 |
 */
 
-Route::get("/", function () {
-    return Inertia::render("Welcome", [
-        "canLogin" => Route::has("login"),
-        "canRegister" => Route::has("register"),
-        "laravelVersion" => Application::VERSION,
-        "phpVersion" => PHP_VERSION,
-    ]);
-})->name("welcome");
+Route::get("/", [HomeController::class, "index"])->name("welcome");
 
+Route::get("/mission", [HomeController::class, "mission"])->name("mission");
+
+Route::get("/impact", [HomeController::class, "impact"])->name("impact");
+
+Route::get("/contact", [HomeController::class, "contact"])->name("contact");
+
+Route::resource("msa", MsaController::class);
+
+// currently unused middleware
 Route::middleware([
     "auth:sanctum",
     config("jetstream.auth_session"),
     "verified",
 ])->group(function () {});
-
-Route::get("/mission", function () {
-    return Inertia::render("Company/Mission");
-})->name("mission");
-
-Route::get("/impact", function () {
-    return Inertia::render("Company/Impact");
-})->name("impact");
-
-Route::get("/contact", function () {
-    return Inertia::render("Company/Contact");
-})->name("contact");
-
-Route::resource("msa", MSAController::class);

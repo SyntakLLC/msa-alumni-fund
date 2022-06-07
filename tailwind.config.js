@@ -25,11 +25,12 @@ module.exports = {
             purple: colors.violet,
             pink: colors.pink,
             sky: colors.sky,
-            brand: colors.sky,
+            brand: colors.emerald,
         },
         extend: {
             fontFamily: {
                 sans: ["DM Sans", ...defaultTheme.fontFamily.sans],
+                serif: ["Charis SIL", ...defaultTheme.fontFamily.sans],
             },
         },
     },

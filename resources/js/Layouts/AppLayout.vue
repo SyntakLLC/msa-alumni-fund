@@ -234,11 +234,12 @@
                             <div class="ml-4 flex lg:ml-0">
                                 <Link :href="route('welcome')">
                                     <span class="sr-only">Workflow</span>
-                                    <img
+                                    <!-- <img
                                         class="h-8 w-auto"
                                         src="https://tailwindui.com/img/logos/workflow-mark.svg?color=brand&shade=600"
                                         alt=""
-                                    />
+                                    /> -->
+                                    <Logo />
                                 </Link>
                             </div>
 
@@ -481,11 +482,12 @@
                         <div
                             class="col-span-1 md:col-span-2 lg:row-start-1 lg:col-start-1"
                         >
-                            <img
+                            <!-- <img
                                 src="https://tailwindui.com/img/logos/workflow-mark.svg?color=brand&shade=600"
                                 alt=""
                                 class="h-8 w-auto"
-                            />
+                            /> -->
+                            <Logo />
                         </div>
 
                         <!-- Sitemap sections -->
@@ -582,12 +584,15 @@
                                     class="appearance-none min-w-0 w-full bg-white border border-gray-300 rounded-md shadow-sm py-2 px-4 text-base text-gray-900 placeholder-gray-500 focus:outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500"
                                 />
                                 <div class="ml-4 flex-shrink-0">
-                                    <button
+                                    <!-- <button
                                         type="submit"
                                         class="w-full bg-brand-600 border border-transparent rounded-md shadow-sm py-2 px-4 flex items-center justify-center text-base font-medium text-white hover:bg-brand-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-500"
                                     >
                                         Sign up
-                                    </button>
+                                    </button> -->
+                                    <primary-button size="sm">
+                                        Sign up
+                                    </primary-button>
                                 </div>
                             </form>
                         </div>
@@ -628,6 +633,8 @@ import {
     XIcon,
 } from "@heroicons/vue/outline";
 import { Link } from "@inertiajs/inertia-vue3";
+import PrimaryButton from "@/Components/PrimaryButton.vue";
+import Logo from "@/Jetstream/ApplicationLogo";
 
 const navigation = {
     // categories: [

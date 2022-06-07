@@ -64,7 +64,6 @@
                                             v-for="section in filters"
                                             :key="section.name"
                                             class="border-t border-gray-200 pt-4 pb-4"
-                                            v-slot="{ open }"
                                         >
                                             <fieldset>
                                                 <legend class="w-full px-2">
@@ -81,7 +80,7 @@
                                                         >
                                                             <ChevronDownIcon
                                                                 :class="[
-                                                                    open
+                                                                    false
                                                                         ? '-rotate-180'
                                                                         : 'rotate-0',
                                                                     'h-5 w-5 transform',
@@ -153,13 +152,14 @@
                                     aria-current="page"
                                     class="font-medium text-gray-500 hover:text-gray-600"
                                 >
-                                    MSA's
+                                    Muslim Student Associations
                                 </a>
                             </li>
                         </ol>
                     </nav>
                 </div>
 
+                <!-- Main Content -->
                 <main class="max-w-2xl mx-auto px-4 lg:max-w-7xl lg:px-8">
                     <!-- Title -->
                     <div class="border-b border-gray-200 py-10">
@@ -334,18 +334,6 @@
                                     Looks like we don't have any MSA's from
                                     there. If you know any, help them sign up!
                                 </p>
-                                <!-- <div class="mt-6">
-                                    <button
-                                        type="button"
-                                        class="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-brand-600 hover:bg-brand-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-500"
-                                    >
-                                        <PlusIcon
-                                            class="-ml-1 mr-2 h-5 w-5"
-                                            aria-hidden="true"
-                                        />
-                                        New Project
-                                    </button>
-                                </div> -->
                             </div>
                         </section>
                     </div>
@@ -355,8 +343,8 @@
     </app-layout>
 </template>
 
-<script setup>
-import { ref } from "vue";
+<script>
+import { defineComponent, ref } from "vue";
 import {
     Dialog,
     DialogPanel,
@@ -387,6 +375,76 @@ import PageTitle from "@/Components/texts/PageTitle.vue";
 import PageSubtitle from "../Components/texts/PageSubtitle.vue";
 import { Link } from "@inertiajs/inertia-vue3";
 
+export default defineComponent({
+    components: {
+        AppLayout, // my components
+        PageTitle,
+        PageSubtitle,
+        ChevronDownIcon, // icons (solid)
+        PlusSmIcon,
+        PlusIcon,
+        MenuIcon, // icons (outline)
+        SearchIcon,
+        ShoppingBagIcon,
+        XIcon,
+        Dialog, // headless UI
+        DialogPanel,
+        Disclosure,
+        DisclosureButton,
+        DisclosurePanel,
+        Popover,
+        PopoverButton,
+        PopoverGroup,
+        PopoverPanel,
+        Tab,
+        TabGroup,
+        TabList,
+        TabPanel,
+        TabPanels,
+        TransitionChild,
+        TransitionRoot,
+        Link,
+    },
+
+    props: ["msas"],
+
+    setup() {
+        return {
+            filters,
+        };
+    },
+
+    data() {
+        return {
+            mobileMenuOpen: false,
+            mobileFiltersOpen: false,
+            cityFilters: [
+                { value: "boston", label: "Boston", checked: false },
+                { value: "new york", label: "New York", checked: false },
+                { value: "chicago", label: "Chicago", checked: false },
+                { value: "losAngeles", label: "Los Angeles", checked: false },
+                { value: "miami", label: "Miami", checked: false },
+                { value: "dallas", label: "Dallas", checked: false },
+            ],
+        };
+    },
+
+    methods: {
+        filterMsas(msas) {
+            const checkedCities = this.cityFilters.map((filter) => {
+                if (filter.checked) return filter.label;
+            });
+
+            // returns all msa's if nothing is checked
+            if (checkedCities.every((v) => v === undefined)) return msas;
+
+            return msas.filter((msa) => {
+                return checkedCities.includes(msa.city);
+            });
+        },
+    },
+});
+
 const filters = [
     {
         id: "cities",
@@ -401,32 +459,4 @@ const filters = [
         ],
     },
 ];
-
-const cityFilters = ref([
-    { value: "boston", label: "Boston", checked: false },
-    { value: "new york", label: "New York", checked: false },
-    { value: "chicago", label: "Chicago", checked: false },
-    { value: "losAngeles", label: "Los Angeles", checked: false },
-    { value: "miami", label: "Miami", checked: false },
-    { value: "dallas", label: "Dallas", checked: false },
-]);
-
-const mobileMenuOpen = ref(false);
-const mobileFiltersOpen = ref(false);
-
-const props = defineProps({
-    msas: Array,
-});
-
-const filterMsas = (msas) => {
-    const checkedCities = cityFilters.value.map((filter) => {
-        if (filter.checked) return filter.label;
-    });
-
-    if (checkedCities.every((v) => v === undefined)) return msas;
-
-    return msas.filter((msa) => {
-        return checkedCities.includes(msa.city);
-    });
-};
 </script>

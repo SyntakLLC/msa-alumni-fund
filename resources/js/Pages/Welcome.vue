@@ -4,50 +4,67 @@
             <Head title="Welcome" />
 
             <!-- Hero -->
-            <div class="bg-white">
-                <div class="relative bg-gray-900">
-                    <!-- Decorative image and overlay -->
-                    <div
-                        aria-hidden="true"
-                        class="absolute inset-0 overflow-hidden"
-                    >
-                        <img
-                            src="https://wmpeople.wm.edu/asset/index/muslim/2015grouppic"
-                            alt="An MSA"
-                            class="w-full h-full object-center object-cover"
-                        />
-                    </div>
-                    <div
-                        aria-hidden="true"
-                        class="absolute inset-0 bg-gray-900 opacity-50"
-                    />
-
-                    <div
-                        class="relative max-w-3xl mx-auto py-32 px-6 flex flex-col items-center text-center sm:py-64 lg:px-0"
-                    >
-                        <h1
-                            class="text-4xl font-extrabold tracking-tight text-white lg:text-6xl"
+            <div class="relative bg-white lg:mb-64">
+                <div class="pt-10 bg-[#f5f7f8] sm:pt-16 lg:pt-0 lg:-mb-56">
+                    <div class="mx-auto lg:px-8">
+                        <div
+                            class="lg:grid lg:grid-cols-2 lg:gap-8 px-6 max-w-7xl mx-auto"
                         >
-                            Give back <br />
-                            to your MSA
-                        </h1>
-                        <p class="mt-4 text-xl text-white">
-                            The new arrivals have, well, newly arrived. Check
-                            out the latest options from our summer small-batch
-                            release while they're still in stock.
-                        </p>
-                        <div class="mt-8">
-                            <Link :href="route('msa.index')">
-                                <primary-button size="xl" color="white">
-                                    Get started
-                                </primary-button>
-                            </Link>
+                            <!-- Text -->
+                            <div
+                                class="mx-auto max-w-md px-4 sm:max-w-2xl sm:px-6 sm:text-center lg:px-0 lg:text-left lg:flex lg:items-center"
+                            >
+                                <div class="lg:py-24">
+                                    <p
+                                        class="hidden lg:block mt-3 text-base text-transparent sm:mt-5 sm:text-xl lg:text-lg xl:text-xl"
+                                    >
+                                        Anim aute id magna aliqua ad ad non
+                                        deserunt sunt. Qui irure qui Lorem
+                                        cupidatat commodo. Elit sunt amet fugiat
+                                        veniam occaecat fugiat.
+                                    </p>
+                                    <h1
+                                        class="font-serif mt-4 text-4xl tracking-tight font-extrabold text-gray-800 sm:mt-5 sm:text-6xl lg:mt-6 xl:text-6xl"
+                                    >
+                                        Give back <br />
+                                        to your MSA
+                                    </h1>
+                                    <div class="mt-10 sm:mt-12">
+                                        <Link :href="route('msa.index')">
+                                            <primary-button
+                                                size="xl"
+                                                class="mx-auto lg:mx-0"
+                                            >
+                                                Get started
+                                            </primary-button>
+                                        </Link>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Image -->
+                            <div
+                                class="mt-12 -mb-16 sm:-mb-48 lg:m-0 lg:relative"
+                            >
+                                <div
+                                    class="mx-auto max-w-md px-4 sm:max-w-2xl sm:px-6 lg:max-w-none lg:px-0"
+                                >
+                                    <!-- @mousemove="tiltHeroImage" -->
+                                    <img
+                                        id="heroImage"
+                                        class="w-full lg:mt-20 rounded-2xl aspect-square object-cover lg:absolute lg:inset-y-0 lg:left-0 lg:h-full lg:w-auto lg:max-w-none"
+                                        src="https://wmpeople.wm.edu/asset/index/muslim/2015grouppic"
+                                        alt="An MSA"
+                                    />
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
+
             <!--  mt-32 -->
-            <main class="bg-white">
+            <main class="bg-white mt-32">
                 <div>
                     <div
                         class="max-w-7xl mx-auto py-24 sm:px-2 sm:py-32 lg:px-4"
@@ -55,18 +72,18 @@
                         <div class="max-w-2xl mx-auto px-4 lg:max-w-none">
                             <div class="max-w-3xl">
                                 <h2
-                                    class="text-4xl font-extrabold tracking-tight text-gray-900"
+                                    class="font-serif text-4xl font-extrabold tracking-tight text-gray-900"
                                 >
-                                    We built our business on customer service
+                                    Fundraising on GoFundMe takes just a few
+                                    minutes
                                 </h2>
                                 <p class="mt-4 text-gray-500">
-                                    At the beginning at least, but then we
-                                    realized we could make a lot more money if
-                                    we kinda stopped caring about that. Our new
-                                    strategy is to write a bunch of things that
-                                    look really good in the headlines, then
-                                    clarify in the small print but hope people
-                                    don't actually read it.
+                                    Sagittis scelerisque nulla cursus in enim
+                                    consectetur quam. Dictum urna sed
+                                    consectetur neque tristique. Sagittis
+                                    scelerisque nulla cursus in enim consectetur
+                                    quam. Dictum urna sed consectetur neque
+                                    tristique.
                                 </p>
                             </div>
                             <div
@@ -212,13 +229,13 @@
                             </div>
                         </div>
 
+                        <!-- Content area -->
                         <div
                             class="relative mx-auto max-w-md px-4 sm:max-w-3xl sm:px-6 lg:px-0"
                         >
-                            <!-- Content area -->
                             <div class="pt-12 sm:pt-16 lg:pt-20">
                                 <h2
-                                    class="text-3xl text-gray-900 font-extrabold tracking-tight sm:text-4xl"
+                                    class="font-serif text-3xl text-gray-900 font-extrabold tracking-tight sm:text-4xl"
                                 >
                                     On a mission to empower teams
                                 </h2>
@@ -301,7 +318,7 @@
                         >
                             <div>
                                 <h2
-                                    class="text-3xl font-extrabold text-gray-900 tracking-tight sm:text-4xl"
+                                    class="font-serif text-3xl font-extrabold text-gray-900 tracking-tight sm:text-4xl"
                                 >
                                     Backed by world-renowned investors
                                 </h2>
@@ -347,113 +364,112 @@
             </main>
 
             <!-- CTA section -->
-            <div class="relative mt-24 sm:mt-32 sm:py-16 h-screen">
-                <div aria-hidden="true" class="hidden sm:block">
-                    <div
-                        class="absolute inset-y-0 left-0 w-1/2 bg-gray-50 rounded-r-3xl"
-                    />
-                    <svg
-                        class="absolute top-8 left-1/2 -ml-3"
-                        width="404"
-                        height="392"
-                        fill="none"
-                        viewBox="0 0 404 392"
-                    >
-                        <defs>
-                            <pattern
-                                id="8228f071-bcee-4ec8-905a-2a059a2cc4fb"
-                                x="0"
-                                y="0"
-                                width="20"
-                                height="20"
-                                patternUnits="userSpaceOnUse"
-                            >
-                                <rect
-                                    x="0"
-                                    y="0"
-                                    width="4"
-                                    height="4"
-                                    class="text-gray-200"
-                                    fill="currentColor"
-                                />
-                            </pattern>
-                        </defs>
-                        <rect
+            <div class="bg-white py-16 sm:py-24">
+                <div class="relative sm:py-16">
+                    <div aria-hidden="true" class="hidden sm:block">
+                        <svg
+                            class="absolute top-8 left-1/2 -ml-3"
                             width="404"
                             height="392"
-                            fill="url(#8228f071-bcee-4ec8-905a-2a059a2cc4fb)"
-                        />
-                    </svg>
-                </div>
-                <div
-                    id="header"
-                    class="mx-auto max-w-md sm:max-w-3xl lg:max-w-7xl h-screen"
-                >
+                            fill="none"
+                            viewBox="0 0 404 392"
+                        >
+                            <defs>
+                                <pattern
+                                    id="8228f071-bcee-4ec8-905a-2a059a2cc4fb"
+                                    x="0"
+                                    y="0"
+                                    width="20"
+                                    height="20"
+                                    patternUnits="userSpaceOnUse"
+                                >
+                                    <rect
+                                        x="0"
+                                        y="0"
+                                        width="4"
+                                        height="4"
+                                        class="text-gray-200"
+                                        fill="currentColor"
+                                    />
+                                </pattern>
+                            </defs>
+                            <rect
+                                width="404"
+                                height="392"
+                                fill="url(#8228f071-bcee-4ec8-905a-2a059a2cc4fb)"
+                            />
+                        </svg>
+                    </div>
                     <div
-                        class="relative py-10 bg-brand-500 overflow-hidden shadow-xl sm:py-20 h-screen"
+                        class="mx-auto max-w-md px-4 sm:max-w-3xl sm:px-6 lg:max-w-7xl lg:px-8"
                     >
                         <div
-                            aria-hidden="true"
-                            class="absolute inset-0 -mt-72 sm:-mt-32 md:mt-0"
+                            class="relative rounded-2xl px-6 py-10 bg-brand-600 overflow-hidden shadow-xl sm:px-12 sm:py-20"
                         >
-                            <svg
-                                class="absolute inset-0 h-full w-full"
-                                preserveAspectRatio="xMidYMid slice"
-                                xmlns="http://www.w3.org/2000/svg"
-                                fill="none"
-                                viewBox="0 0 1463 360"
+                            <div
+                                aria-hidden="true"
+                                class="absolute inset-0 -mt-72 sm:-mt-32 md:mt-0"
                             >
-                                <path
-                                    class="text-brand-400 text-opacity-40"
-                                    fill="currentColor"
-                                    d="M-82.673 72l1761.849 472.086-134.327 501.315-1761.85-472.086z"
-                                />
-                                <path
-                                    class="text-brand-600 text-opacity-40"
-                                    fill="currentColor"
-                                    d="M-217.088 544.086L1544.761 72l134.327 501.316-1761.849 472.086z"
-                                />
-                            </svg>
-                        </div>
-                        <div class="relative">
-                            <div class="sm:text-center">
-                                <h2
-                                    class="text-3xl font-extrabold text-white tracking-tight sm:text-4xl"
+                                <svg
+                                    class="absolute inset-0 h-full w-full"
+                                    preserveAspectRatio="xMidYMid slice"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    fill="none"
+                                    viewBox="0 0 1463 360"
                                 >
-                                    Get notified when we&rsquo;re launching.
-                                </h2>
-                                <p
-                                    class="mt-6 mx-auto max-w-2xl text-lg text-brand-100"
-                                >
-                                    Sagittis scelerisque nulla cursus in enim
-                                    consectetur quam. Dictum urna sed
-                                    consectetur neque tristique pellentesque.
-                                </p>
-                            </div>
-                            <form
-                                action="#"
-                                class="mt-12 sm:mx-auto sm:max-w-lg sm:flex"
-                            >
-                                <div class="min-w-0 flex-1">
-                                    <label for="cta-email" class="sr-only"
-                                        >Email address</label
-                                    >
-                                    <input
-                                        id="cta-email"
-                                        type="email"
-                                        class="block w-full border border-transparent rounded-md px-5 py-3 text-base text-gray-900 placeholder-gray-500 shadow-sm focus:outline-none focus:border-transparent focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-brand-500"
-                                        placeholder="Enter your email"
+                                    <path
+                                        class="text-brand-500 text-opacity-40"
+                                        fill="currentColor"
+                                        d="M-82.673 72l1761.849 472.086-134.327 501.315-1761.85-472.086z"
                                     />
-                                </div>
-                                <div class="mt-4 sm:mt-0 sm:ml-3">
-                                    <button
-                                        type="submit"
-                                        class="block w-full rounded-md border border-transparent px-5 py-3 bg-gray-900 text-base font-medium text-white shadow hover:bg-black focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-brand-500 sm:px-10"
+                                    <path
+                                        class="text-brand-700 text-opacity-40"
+                                        fill="currentColor"
+                                        d="M-217.088 544.086L1544.761 72l134.327 501.316-1761.849 472.086z"
+                                    />
+                                </svg>
+                            </div>
+                            <div class="relative">
+                                <div class="sm:text-center">
+                                    <h2
+                                        class="text-3xl font-extrabold text-white tracking-tight sm:text-4xl"
                                     >
-                                        Notify me
-                                    </button>
+                                        Get notified when we&rsquo;re launching.
+                                    </h2>
+                                    <p
+                                        class="mt-6 mx-auto max-w-2xl text-lg text-brand-200"
+                                    >
+                                        Sagittis scelerisque nulla cursus in
+                                        enim consectetur quam. Dictum urna sed
+                                        consectetur neque tristique
+                                        pellentesque.
+                                    </p>
                                 </div>
-                            </form>
+                                <form
+                                    action="#"
+                                    class="mt-12 sm:mx-auto sm:max-w-lg sm:flex"
+                                >
+                                    <div class="min-w-0 flex-1">
+                                        <label for="cta-email" class="sr-only"
+                                            >Email address</label
+                                        >
+                                        <input
+                                            id="cta-email"
+                                            type="email"
+                                            class="block w-full border border-transparent rounded-md px-5 py-3 text-base text-gray-900 placeholder-gray-500 shadow-sm focus:outline-none focus:border-transparent focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-brand-600"
+                                            placeholder="Enter your email"
+                                        />
+                                    </div>
+                                    <div class="mt-4 sm:mt-0 sm:ml-3">
+                                        <button
+                                            type="submit"
+                                            class="block w-full rounded-md border border-transparent px-5 py-3 bg-brand-500 text-base font-medium text-white shadow hover:bg-brand-400 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-brand-600 sm:px-10"
+                                        >
+                                            Notify me
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -476,21 +492,21 @@ const incentives = [
         imageSrc:
             "https://tailwindui.com/img/ecommerce/icons/icon-shipping-simple.svg",
         description:
-            "It's not actually free we just price it into the products. Someone's paying for it, and it's not us.",
+            "Sagittis scelerisque nulla cursus in enim consectetur quam. Dictum urna sed consectetur neque tristique.",
     },
     {
         name: "10-year warranty",
         imageSrc:
             "https://tailwindui.com/img/ecommerce/icons/icon-warranty-simple.svg",
         description:
-            "If it breaks in the first 10 years we'll replace it. After that you're on your own though.",
+            "Sagittis scelerisque nulla cursus in enim consectetur quam. Dictum urna sed consectetur neque tristique.",
     },
     {
         name: "Exchanges",
         imageSrc:
             "https://tailwindui.com/img/ecommerce/icons/icon-exchange-simple.svg",
         description:
-            "If you don't like it, trade it to one of your friends for something of theirs. Don't send it here though.",
+            "Sagittis scelerisque nulla cursus in enim consectetur quam. Dictum urna sed consectetur neque tristique.",
     },
 ];
 
@@ -523,6 +539,39 @@ export default defineComponent({
     },
 
     methods: {
+        tiltHeroImage(event) {
+            // console.log(event.offsetY);
+
+            const heroImage = document.querySelector("#heroImage");
+            const heroWidth = heroImage.getBoundingClientRect().width;
+
+            let x = -event.offsetX / 50;
+            if (x < heroWidth / 100) {
+                // then we want the offset to be negative so it turns back
+                x = -x;
+            }
+
+            let y = -event.offsetY / 50;
+            if (y < heroWidth / 100) {
+                // then we want the offset to be negative so it turns back
+                y = -y;
+            }
+
+            console.log(`x: ${x}, y: ${y}`);
+
+            // console.log((heroWidth / 2 + event.offsetX) / 50);
+
+            // const x = (heroWidth / 2 + event.offsetX) / 50;
+            // const y = (heroWidth / 2 + event.offsetY) / 50;
+
+            var style = "rotateX(" + y + "deg) rotateY(" + x + "deg)";
+            heroImage.style.transform = style;
+            heroImage.style.webkitTransform = style;
+            heroImage.style.mozTransform = style;
+            heroImage.style.msTransform = style;
+            heroImage.style.oTransform = style;
+        },
+
         checkVisible(id) {
             const rect = document
                 .querySelector("#header")
@@ -535,12 +584,12 @@ export default defineComponent({
                 100 * ((viewHeight - rect.top) / rect.height);
 
             // dynamic width
-            if (percentageAboveScreen > 0 && percentageAboveScreen < 100) {
-                let r = document.querySelector("#header");
+            // if (percentageAboveScreen > 0 && percentageAboveScreen < 100) {
+            let r = document.querySelector("#header");
 
-                r.style.width = 90 + percentageAboveScreen / 10 + "%";
-                r.style.borderRadius = "25px";
-            }
+            r.style.width = 85 + percentageAboveScreen / 10 + "%";
+            r.style.borderRadius = "25px";
+            // }
 
             return !(rect.bottom < 0 || rect.top - viewHeight >= 0);
         },

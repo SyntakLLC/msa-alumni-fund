@@ -217,7 +217,7 @@
                                     :href="route('msa.index')"
                                     class="mr-4 text-sm font-medium text-gray-900"
                                 >
-                                    MSA's
+                                    Muslim Student Associations
                                 </Link>
                                 <svg
                                     viewBox="0 0 6 20"
@@ -305,7 +305,7 @@
 
                             <div class="mt-3">
                                 <h2 class="sr-only">Product information</h2>
-                                <p class="text-3xl text-gray-900">
+                                <p class="font-serif text-3xl text-gray-900">
                                     {{ msa.school }}
                                 </p>
                             </div>
@@ -313,7 +313,13 @@
                             <!-- Reviews -->
                             <div class="mt-3">
                                 <page-subtitle color="brand">
-                                    {{ msa.contact }}
+                                    <a :href="`mailto:${msa.contact}`">
+                                        <span
+                                            class="uppercase text-sm font-extrabold"
+                                            >Contact:</span
+                                        >
+                                        {{ msa.contact }}
+                                    </a>
                                 </page-subtitle>
                             </div>
 
@@ -426,6 +432,7 @@
                                     v-for="msa in nearbyMsas"
                                     :key="msa.uuid"
                                     :href="route('msa.show', msa.uuid)"
+                                    class="hover:scale-95 transition"
                                 >
                                     <div class="relative">
                                         <div
