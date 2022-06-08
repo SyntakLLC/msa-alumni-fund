@@ -1110,6 +1110,28 @@ select {
   --tw-border-opacity: 1;
   border-color: rgb(229 231 235 / var(--tw-border-opacity));
 }
+.hero-text {
+  font-size: 2.25rem;
+  line-height: 2.5rem;
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  --tw-text-opacity: 1;
+  color: rgb(31 41 55 / var(--tw-text-opacity));
+}
+@media (min-width: 640px) {
+
+  .hero-text {
+    font-size: 3.75rem;
+    line-height: 1;
+  }
+}
+@media (min-width: 1280px) {
+
+  .hero-text {
+    font-size: 3.75rem;
+    line-height: 1;
+  }
+}
 .sr-only {
   position: absolute;
   width: 1px;
@@ -1289,9 +1311,6 @@ select {
 .mt-12 {
   margin-top: 3rem;
 }
-.-mb-16 {
-  margin-bottom: -4rem;
-}
 .mt-32 {
   margin-top: 8rem;
 }
@@ -1306,6 +1325,9 @@ select {
 }
 .-ml-1 {
   margin-left: -0.25rem;
+}
+.-mb-16 {
+  margin-bottom: -4rem;
 }
 .-mt-12 {
   margin-top: -3rem;
@@ -1643,9 +1665,6 @@ select {
 .justify-between {
   justify-content: space-between;
 }
-.justify-items-end {
-  justify-items: end;
-}
 .justify-items-center {
   justify-items: center;
 }
@@ -1920,18 +1939,6 @@ select {
   --tw-bg-opacity: 1;
   background-color: rgb(16 185 129 / var(--tw-bg-opacity));
 }
-.bg-red-500 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(239 68 68 / var(--tw-bg-opacity));
-}
-.bg-yellow-500 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(245 158 11 / var(--tw-bg-opacity));
-}
-.bg-green-500 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(16 185 129 / var(--tw-bg-opacity));
-}
 .bg-opacity-25 {
   --tw-bg-opacity: 0.25;
 }
@@ -2149,9 +2156,6 @@ select {
 .pb-16 {
   padding-bottom: 4rem;
 }
-.pt-24 {
-  padding-top: 6rem;
-}
 .text-left {
   text-align: left;
 }
@@ -2318,9 +2322,6 @@ select {
 .text-brand-600 {
   --tw-text-opacity: 1;
   color: rgb(5 150 105 / var(--tw-text-opacity));
-}
-.text-transparent {
-  color: transparent;
 }
 .text-brand-400 {
   --tw-text-opacity: 1;
@@ -2830,12 +2831,12 @@ select {
     margin-top: 3rem;
   }
 
-  .sm\:-mb-48 {
-    margin-bottom: -12rem;
-  }
-
   .sm\:-mt-32 {
     margin-top: -8rem;
+  }
+
+  .sm\:-mb-48 {
+    margin-bottom: -12rem;
   }
 
   .sm\:mt-16 {
@@ -3109,16 +3110,6 @@ select {
     line-height: 1.25rem;
   }
 
-  .sm\:text-xl {
-    font-size: 1.25rem;
-    line-height: 1.75rem;
-  }
-
-  .sm\:text-6xl {
-    font-size: 3.75rem;
-    line-height: 1;
-  }
-
   .sm\:text-4xl {
     font-size: 2.25rem;
     line-height: 2.5rem;
@@ -3219,10 +3210,6 @@ select {
     bottom: 0px;
   }
 
-  .lg\:left-0 {
-    left: 0px;
-  }
-
   .lg\:right-0 {
     right: 0px;
   }
@@ -3241,6 +3228,10 @@ select {
 
   .lg\:top-12 {
     top: 3rem;
+  }
+
+  .lg\:left-0 {
+    left: 0px;
   }
 
   .lg\:col-span-4 {
@@ -3317,20 +3308,16 @@ select {
     margin-top: 0px;
   }
 
+  .lg\:mt-6 {
+    margin-top: 1.5rem;
+  }
+
   .lg\:mb-64 {
     margin-bottom: 16rem;
   }
 
   .lg\:-mb-56 {
     margin-bottom: -14rem;
-  }
-
-  .lg\:mt-6 {
-    margin-top: 1.5rem;
-  }
-
-  .lg\:mt-20 {
-    margin-top: 5rem;
   }
 
   .lg\:mt-10 {
@@ -3357,28 +3344,8 @@ select {
     aspect-ratio: 1 / 1;
   }
 
-  .lg\:h-full {
-    height: 100%;
-  }
-
-  .lg\:w-auto {
-    width: auto;
-  }
-
   .lg\:w-screen {
     width: 100vw;
-  }
-
-  .lg\:w-full {
-    width: 100%;
-  }
-
-  .lg\:w-3\/4 {
-    width: 75%;
-  }
-
-  .lg\:w-5\/6 {
-    width: 83.333333%;
   }
 
   .lg\:max-w-7xl {
@@ -3401,12 +3368,12 @@ select {
     grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 
-  .lg\:grid-cols-2 {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
   .lg\:grid-cols-3 {
     grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .lg\:grid-cols-2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .lg\:grid-cols-12 {
@@ -3425,12 +3392,12 @@ select {
     justify-content: flex-end;
   }
 
-  .lg\:gap-8 {
-    gap: 2rem;
-  }
-
   .lg\:gap-24 {
     gap: 6rem;
+  }
+
+  .lg\:gap-8 {
+    gap: 2rem;
   }
 
   .lg\:gap-x-8 {
@@ -3458,11 +3425,6 @@ select {
     padding-right: 0px;
   }
 
-  .lg\:py-24 {
-    padding-top: 6rem;
-    padding-bottom: 6rem;
-  }
-
   .lg\:px-4 {
     padding-left: 1rem;
     padding-right: 1rem;
@@ -3478,12 +3440,17 @@ select {
     padding-bottom: 5rem;
   }
 
-  .lg\:pt-0 {
-    padding-top: 0px;
+  .lg\:py-24 {
+    padding-top: 6rem;
+    padding-bottom: 6rem;
   }
 
   .lg\:pt-20 {
     padding-top: 5rem;
+  }
+
+  .lg\:pt-0 {
+    padding-top: 0px;
   }
 
   .lg\:pt-24 {
@@ -3497,11 +3464,6 @@ select {
   .lg\:text-6xl {
     font-size: 3.75rem;
     line-height: 1;
-  }
-
-  .lg\:text-lg {
-    font-size: 1.125rem;
-    line-height: 1.75rem;
   }
 }
 @media (min-width: 1280px) {
@@ -3533,16 +3495,6 @@ select {
   .xl\:gap-x-8 {
     -moz-column-gap: 2rem;
          column-gap: 2rem;
-  }
-
-  .xl\:text-xl {
-    font-size: 1.25rem;
-    line-height: 1.75rem;
-  }
-
-  .xl\:text-6xl {
-    font-size: 3.75rem;
-    line-height: 1;
   }
 }
 

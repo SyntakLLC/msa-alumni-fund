@@ -8,9 +8,7 @@
                 imageUrl="https://wmpeople.wm.edu/asset/index/muslim/2015grouppic"
             >
                 <template #left>
-                    <h1
-                        class="font-serif mt-4 text-4xl tracking-tight font-extrabold text-gray-800 sm:mt-5 sm:text-6xl lg:mt-6 xl:text-6xl"
-                    >
+                    <h1 class="hero-text font-serif mt-4 sm:mt-5 lg:mt-6">
                         Give back <br />
                         to your MSA
                     </h1>
