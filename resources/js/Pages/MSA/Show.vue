@@ -205,44 +205,10 @@
             </TransitionRoot>
 
             <!-- Breadcrumbs -->
-            <div class="border-b border-gray-200">
-                <nav
-                    aria-label="Breadcrumb"
-                    class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
-                >
-                    <ol role="list" class="flex items-center space-x-4 py-4">
-                        <li>
-                            <div class="flex items-center">
-                                <Link
-                                    :href="route('msa.index')"
-                                    class="mr-4 text-sm font-medium text-gray-900"
-                                >
-                                    Muslim Student Associations
-                                </Link>
-                                <svg
-                                    viewBox="0 0 6 20"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    aria-hidden="true"
-                                    class="h-5 w-auto text-gray-300"
-                                >
-                                    <path
-                                        d="M4.878 4.34H3.551L.27 16.532h1.327l3.281-12.19z"
-                                        fill="currentColor"
-                                    />
-                                </svg>
-                            </div>
-                        </li>
-                        <li class="text-sm">
-                            <p
-                                aria-current="page"
-                                class="font-medium text-gray-500 hover:text-gray-600"
-                            >
-                                {{ msa.school }}
-                            </p>
-                        </li>
-                    </ol>
-                </nav>
-            </div>
+            <breadcrumbs :numOfItems="2" :homeRoute="route('msa.index')">
+                <template #1> Muslim Student Associations </template>
+                <template #2> {{ msa.school }} </template>
+            </breadcrumbs>
 
             <main class="max-w-7xl mx-auto sm:pt-16 sm:px-6 lg:px-8">
                 <div class="max-w-2xl mx-auto lg:max-w-none">
@@ -525,6 +491,7 @@ import { Link } from "@inertiajs/inertia-vue3";
 import PageTitle from "@/Components/texts/PageTitle.vue";
 import PageSubtitle from "@/Components/texts/PageSubtitle.vue";
 import PrimaryButton from "@/Components/PrimaryButton.vue";
+import Breadcrumbs from "@/Components/navbar/Breadcrumbs.vue";
 
 const open = ref(false);
 

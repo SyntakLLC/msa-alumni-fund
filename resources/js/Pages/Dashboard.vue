@@ -137,38 +137,20 @@
                 </TransitionRoot>
 
                 <!-- Breadcrumbs -->
-                <div class="border-b border-gray-200">
-                    <nav
-                        aria-label="Breadcrumb"
-                        class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
-                    >
-                        <ol
-                            role="list"
-                            class="flex items-center space-x-4 py-4"
-                        >
-                            <li class="text-sm">
-                                <a
-                                    :href="route('msa.index')"
-                                    aria-current="page"
-                                    class="font-medium text-gray-500 hover:text-gray-600"
-                                >
-                                    Muslim Student Associations
-                                </a>
-                            </li>
-                        </ol>
-                    </nav>
-                </div>
+                <breadcrumbs :numOfItems="1">
+                    <template #1> Muslim Student Associations </template>
+                </breadcrumbs>
 
                 <!-- Main Content -->
                 <main class="max-w-2xl mx-auto px-4 lg:max-w-7xl lg:px-8">
                     <!-- Title -->
-                    <div class="border-b border-gray-200 py-10">
-                        <page-title> Discover MSA's </page-title>
-                        <page-subtitle>
+                    <title-with-subtitle-layout>
+                        <template #title> Discover MSA's </template>
+                        <template #subtitle>
                             Check out out the latest MSA's who have joined our
                             community!
-                        </page-subtitle>
-                    </div>
+                        </template>
+                    </title-with-subtitle-layout>
 
                     <!-- Content -->
                     <div
@@ -371,15 +353,15 @@ import {
 } from "@heroicons/vue/outline";
 import { ChevronDownIcon, PlusSmIcon, PlusIcon } from "@heroicons/vue/solid";
 import AppLayout from "@/Layouts/AppLayout.vue";
-import PageTitle from "@/Components/texts/PageTitle.vue";
-import PageSubtitle from "../Components/texts/PageSubtitle.vue";
 import { Link } from "@inertiajs/inertia-vue3";
+import Breadcrumbs from "@/Components/navbar/Breadcrumbs.vue";
+import TitleWithSubtitleLayout from "@/Layouts/ui/TitleWithSubtitleLayout.vue";
 
 export default defineComponent({
     components: {
         AppLayout, // my components
-        PageTitle,
-        PageSubtitle,
+        Breadcrumbs,
+        TitleWithSubtitleLayout,
         ChevronDownIcon, // icons (solid)
         PlusSmIcon,
         PlusIcon,
