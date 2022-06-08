@@ -3097,6 +3097,10 @@ select {
     padding-bottom: 6rem;
   }
 
+  .sm\:pb-0 {
+    padding-bottom: 0px;
+  }
+
   .sm\:text-left {
     text-align: left;
   }
@@ -3193,6 +3197,10 @@ select {
 
   .md\:border-l {
     border-left-width: 1px;
+  }
+
+  .md\:pb-0 {
+    padding-bottom: 0px;
   }
 }
 @media (min-width: 1024px) {
@@ -3455,6 +3463,10 @@ select {
 
   .lg\:pt-24 {
     padding-top: 6rem;
+  }
+
+  .lg\:pb-0 {
+    padding-bottom: 0px;
   }
 
   .lg\:text-left {

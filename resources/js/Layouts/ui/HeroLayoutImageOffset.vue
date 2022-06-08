@@ -45,5 +45,66 @@ export default defineComponent({
             type: String,
         },
     },
+
+    mounted() {
+        window.addEventListener("scroll", this.checkVisible);
+    },
+
+    methods: {
+        tiltHeroImage(event) {
+            // console.log(event.offsetY);
+
+            const heroImage = document.querySelector("#heroImage");
+            const heroWidth = heroImage.getBoundingClientRect().width;
+
+            let x = -event.offsetX / 50;
+            if (x < heroWidth / 100) {
+                // then we want the offset to be negative so it turns back
+                x = -x;
+            }
+
+            let y = -event.offsetY / 50;
+            if (y < heroWidth / 100) {
+                // then we want the offset to be negative so it turns back
+                y = -y;
+            }
+
+            console.log(`x: ${x}, y: ${y}`);
+
+            // console.log((heroWidth / 2 + event.offsetX) / 50);
+
+            // const x = (heroWidth / 2 + event.offsetX) / 50;
+            // const y = (heroWidth / 2 + event.offsetY) / 50;
+
+            var style = "rotateX(" + y + "deg) rotateY(" + x + "deg)";
+            heroImage.style.transform = style;
+            heroImage.style.webkitTransform = style;
+            heroImage.style.mozTransform = style;
+            heroImage.style.msTransform = style;
+            heroImage.style.oTransform = style;
+        },
+
+        checkVisible(id) {
+            const rect = document
+                .querySelector("#header")
+                .getBoundingClientRect();
+            const viewHeight = Math.max(
+                document.documentElement.clientHeight,
+                window.innerHeight
+            );
+            const percentageAboveScreen =
+                100 * ((viewHeight - rect.top) / rect.height);
+
+            // dynamic width
+            // if (percentageAboveScreen > 0 && percentageAboveScreen < 100) {
+            let r = document.querySelector("#header");
+
+            r.style.width = 85 + percentageAboveScreen / 10 + "%";
+            r.style.borderRadius = "25px";
+            // }
+
+            return !(rect.bottom < 0 || rect.top - viewHeight >= 0);
+        },
+    },
 });
 </script>
