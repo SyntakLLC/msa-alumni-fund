@@ -1,5 +1,7 @@
 <template>
-    <div class="border-b border-gray-200 py-10">
+    <div
+        class="border-b border-gray-200 py-10 max-w-2xl mx-auto px-4 lg:max-w-7xl lg:px-8"
+    >
         <page-title>
             <slot name="title" />
         </page-title>

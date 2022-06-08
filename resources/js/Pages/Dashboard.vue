@@ -141,17 +141,17 @@
                     <template #1> Muslim Student Associations </template>
                 </breadcrumbs>
 
+                <!-- Title -->
+                <title-with-subtitle-layout>
+                    <template #title> Discover MSA's </template>
+                    <template #subtitle>
+                        Check out out the latest MSA's who have joined our
+                        community!
+                    </template>
+                </title-with-subtitle-layout>
+
                 <!-- Main Content -->
                 <main class="max-w-2xl mx-auto px-4 lg:max-w-7xl lg:px-8">
-                    <!-- Title -->
-                    <title-with-subtitle-layout>
-                        <template #title> Discover MSA's </template>
-                        <template #subtitle>
-                            Check out out the latest MSA's who have joined our
-                            community!
-                        </template>
-                    </title-with-subtitle-layout>
-
                     <!-- Content -->
                     <div
                         class="pt-12 pb-24 lg:grid lg:grid-cols-4 lg:gap-x-8 xl:grid-cols-5"
