@@ -7,19 +7,18 @@
             <hero-layout-image-offset
                 imageUrl="https://wmpeople.wm.edu/asset/index/muslim/2015grouppic"
             >
-                <template #left>
-                    <h1 class="hero-text font-serif mt-4 sm:mt-5 lg:mt-6">
-                        Give back <br />
-                        to your MSA
-                    </h1>
-                    <div class="mt-10 sm:mt-12">
-                        <Link :href="route('msa.index')">
-                            <primary-button size="xl" class="mx-auto lg:mx-0">
-                                Get started
-                            </primary-button>
-                        </Link>
-                    </div>
-                </template>
+                <hero-title>
+                    Give back <br />
+                    to your MSA
+                </hero-title>
+
+                <div class="mt-10 sm:mt-12">
+                    <Link :href="route('msa.index')">
+                        <primary-button size="xl" class="mx-auto lg:mx-0">
+                            Get started
+                        </primary-button>
+                    </Link>
+                </div>
             </hero-layout-image-offset>
 
             <!--  mt-32 -->
@@ -445,6 +444,7 @@ import PrimaryButton from "@/Components/PrimaryButton.vue";
 import NavBar from "@/Components/navbar/NavBar.vue";
 import AppLayout from "@/Layouts/AppLayout.vue";
 import HeroLayoutImageOffset from "@/Layouts/ui/HeroLayoutImageOffset.vue";
+import HeroTitle from "@/Components/texts/HeroTitle.vue";
 
 const incentives = [
     {
@@ -480,6 +480,7 @@ export default defineComponent({
         NavBar,
         AppLayout,
         HeroLayoutImageOffset,
+        HeroTitle,
     },
 
     props: {

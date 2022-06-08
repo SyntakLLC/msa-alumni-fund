@@ -10,7 +10,7 @@
                         class="lg:pt-24 w-full items-end mx-auto max-w-md px-4 sm:max-w-2xl sm:px-6 text-center lg:px-0 lg:text-left lg:flex lg:items-center"
                     >
                         <div class="lg:py-24 w-full items-end">
-                            <slot name="left" />
+                            <slot />
                         </div>
                     </div>
 
