@@ -88,13 +88,17 @@ const submit = () => {
                     Forgot your password?
                 </Link>
 
-                <JetButton
-                    class="ml-4"
-                    :class="{ 'opacity-25': form.processing }"
-                    :disabled="form.processing"
-                >
-                    Log in
-                </JetButton>
+                <div class="flex">
+                    <PrimaryButton
+                        type="submit"
+                        size="sm"
+                        class="ml-4"
+                        :class="{ 'opacity-25': form.processing }"
+                        :disabled="form.processing"
+                    >
+                        Log in
+                    </PrimaryButton>
+                </div>
             </div>
         </form>
     </JetAuthenticationCard>
