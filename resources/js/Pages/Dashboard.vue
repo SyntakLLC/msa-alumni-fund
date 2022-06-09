@@ -46,7 +46,7 @@
                         </Link>
                     </template>
 
-                    <template #emptyState>
+                    <template #empty>
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
                             class="mx-auto h-12 w-12 text-gray-400"

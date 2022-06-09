@@ -189,7 +189,7 @@
             </div>
 
             <div v-else class="text-center">
-                <slot name="emptyState" />
+                <slot name="empty" />
             </div>
         </section>
     </div>
