@@ -84,7 +84,7 @@
                                                 <div
                                                     v-for="item in category.featured"
                                                     :key="item.name"
-                                                    class="group relative text-sm"
+                                                    class="group relative text-md"
                                                 >
                                                     <div
                                                         class="aspect-w-1 aspect-h-1 rounded-lg bg-gray-100 overflow-hidden group-hover:opacity-75"
@@ -181,27 +181,6 @@
                                         >
                                     </div>
                                 </div>
-
-                                <div class="border-t border-gray-200 py-6 px-4">
-                                    <a
-                                        href="#"
-                                        class="-m-2 p-2 flex items-center"
-                                    >
-                                        <img
-                                            src="https://tailwindui.com/img/flags/flag-canada.svg"
-                                            alt=""
-                                            class="w-5 h-auto block flex-shrink-0"
-                                        />
-                                        <span
-                                            class="ml-3 block text-base font-medium text-gray-900"
-                                        >
-                                            CAD
-                                        </span>
-                                        <span class="sr-only"
-                                            >, change currency</span
-                                        >
-                                    </a>
-                                </div>
                             </DialogPanel>
                         </TransitionChild>
                     </div>
@@ -210,7 +189,7 @@
 
             <header class="relative">
                 <p
-                    class="bg-brand-600 h-10 flex items-center justify-center text-sm font-medium text-white px-4 sm:px-6 lg:px-8"
+                    class="bg-brand-600 h-10 flex items-center justify-center text-md font-medium text-white px-4 sm:px-6 lg:px-8"
                 >
                     We're a new organization, so spread the word!
                 </p>
@@ -260,7 +239,7 @@
                                                     open
                                                         ? 'border-brand-600 text-brand-600'
                                                         : 'border-transparent text-gray-700 hover:text-gray-800',
-                                                    'relative z-10 flex items-center transition-colors ease-out duration-200 text-sm font-medium border-b-2 -mb-px pt-px',
+                                                    'relative z-10 flex items-center transition-colors ease-out duration-200 text-md font-medium border-b-2 -mb-px pt-px',
                                                 ]"
                                             >
                                                 {{ category.name }}
@@ -276,7 +255,7 @@
                                             leave-to-class="opacity-0"
                                         >
                                             <PopoverPanel
-                                                class="absolute top-full inset-x-0 text-sm text-gray-500"
+                                                class="absolute top-full inset-x-0 text-md text-gray-500"
                                             >
                                                 <!-- Presentational element used to render the bottom shadow, if we put the shadow on the actual panel it pokes out the top, so we use this shorter element to hide the top of the shadow -->
                                                 <div
@@ -299,7 +278,7 @@
                                                                     :key="
                                                                         item.name
                                                                     "
-                                                                    class="group relative text-base sm:text-sm"
+                                                                    class="group relative text-base sm:text-md"
                                                                 >
                                                                     <div
                                                                         class="aspect-w-1 aspect-h-1 rounded-lg bg-gray-100 overflow-hidden group-hover:opacity-75"
@@ -337,7 +316,7 @@
                                                                 </div>
                                                             </div>
                                                             <div
-                                                                class="row-start-1 grid grid-cols-3 gap-y-10 gap-x-8 text-sm"
+                                                                class="row-start-1 grid grid-cols-3 gap-y-10 gap-x-8 text-md"
                                                             >
                                                                 <div
                                                                     v-for="section in category.sections"
@@ -394,7 +373,7 @@
                                             page.href == route().current()
                                                 ? 'text-brand-600 font-bold underline underline-offset-4'
                                                 : '',
-                                            'flex items-center text-sm font-medium text-gray-700 hover:text-gray-800',
+                                            'flex items-center text-md font-medium text-gray-700 hover:text-gray-800',
                                         ]"
                                     >
                                         {{ page.name }}
@@ -408,7 +387,7 @@
                                 >
                                     <Link
                                         :href="route('login')"
-                                        class="text-sm font-medium text-gray-700 hover:text-gray-800"
+                                        class="text-md font-medium text-gray-700 hover:text-gray-800"
                                     >
                                         Sign in
                                     </Link>
@@ -418,7 +397,7 @@
                                     />
                                     <Link
                                         :href="route('register')"
-                                        class="text-sm font-medium text-gray-700 hover:text-gray-800"
+                                        class="text-md font-medium text-gray-700 hover:text-gray-800"
                                     >
                                         Create account
                                     </Link>
@@ -449,7 +428,7 @@
                                             aria-hidden="true"
                                         />
                                         <span
-                                            class="ml-2 text-sm font-medium text-gray-700 group-hover:text-gray-800"
+                                            class="ml-2 text-md font-medium text-gray-700 group-hover:text-gray-800"
                                             >0</span
                                         >
                                         <span class="sr-only"
@@ -499,7 +478,7 @@
                             >
                                 <div>
                                     <h3
-                                        class="text-sm font-medium text-gray-900"
+                                        class="text-md font-medium text-gray-900"
                                     >
                                         Products
                                     </h3>
@@ -507,7 +486,7 @@
                                         <li
                                             v-for="item in footerNavigation.products"
                                             :key="item.name"
-                                            class="text-sm"
+                                            class="text-md"
                                         >
                                             <a
                                                 :href="item.href"
@@ -520,7 +499,7 @@
                                 </div>
                                 <div>
                                     <h3
-                                        class="text-sm font-medium text-gray-900"
+                                        class="text-md font-medium text-gray-900"
                                     >
                                         Company
                                     </h3>
@@ -528,7 +507,7 @@
                                         <li
                                             v-for="item in footerNavigation.company"
                                             :key="item.name"
-                                            class="text-sm"
+                                            class="text-md"
                                         >
                                             <a
                                                 :href="item.href"
@@ -541,14 +520,14 @@
                                 </div>
                             </div>
                             <div>
-                                <h3 class="text-sm font-medium text-gray-900">
+                                <h3 class="text-md font-medium text-gray-900">
                                     Customer Service
                                 </h3>
                                 <ul role="list" class="mt-6 space-y-6">
                                     <li
                                         v-for="item in footerNavigation.customerService"
                                         :key="item.name"
-                                        class="text-sm"
+                                        class="text-md"
                                     >
                                         <a
                                             :href="item.href"
@@ -565,10 +544,10 @@
                         <div
                             class="mt-12 md:mt-0 md:row-start-2 md:col-start-3 md:col-span-8 lg:row-start-1 lg:col-start-9 lg:col-span-4"
                         >
-                            <h3 class="text-sm font-medium text-gray-900">
+                            <h3 class="text-md font-medium text-gray-900">
                                 Sign up for our newsletter
                             </h3>
-                            <p class="mt-6 text-sm text-gray-500">
+                            <p class="mt-6 text-md text-gray-500">
                                 The latest deals and savings, sent to your inbox
                                 weekly.
                             </p>
@@ -600,7 +579,7 @@
                 </div>
 
                 <div class="border-t border-gray-100 py-10 text-center">
-                    <p class="text-sm text-gray-500">
+                    <p class="text-md text-gray-500">
                         &copy; 2021 Workflow, Inc. All rights reserved.
                     </p>
                 </div>

@@ -127,7 +127,7 @@
                 class="inline-flex items-center lg:hidden"
                 @click="mobileFiltersOpen = true"
             >
-                <span class="text-sm font-medium text-gray-700">Filters</span>
+                <span class="text-md font-medium text-gray-700">Filters</span>
                 <PlusSmIcon
                     class="flex-shrink-0 ml-1 h-5 w-5 text-gray-400"
                     aria-hidden="true"
@@ -143,7 +143,7 @@
                     >
                         <fieldset>
                             <legend
-                                class="block text-sm font-medium text-gray-900"
+                                class="block text-xl font-medium text-gray-900"
                             >
                                 {{ section.name }}
                             </legend>
@@ -162,7 +162,7 @@
                                     />
                                     <label
                                         :for="`${section.id}-${optionIdx}`"
-                                        class="ml-3 text-sm text-gray-600"
+                                        class="ml-3 text-lg text-gray-600"
                                     >
                                         {{ option.label }}
                                     </label>

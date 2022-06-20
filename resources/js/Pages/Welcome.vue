@@ -14,7 +14,7 @@
             <div class="mt-10 sm:mt-12">
                 <Link :href="route('msa.index')">
                     <primary-button size="xl" class="mx-auto lg:mx-0">
-                        Get started
+                        Find your MSA
                     </primary-button>
                 </Link>
             </div>

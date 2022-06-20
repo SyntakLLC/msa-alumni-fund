@@ -27,7 +27,7 @@
                             v-for="msa in filterMsas(msas)"
                             :href="route('msa.show', msa.uuid)"
                             :key="msa.id"
-                            class="group relative bg-white border border-gray-200 rounded-lg flex flex-col overflow-hidden"
+                            class="group relative bg-white border border-gray-200 rounded-lg flex flex-col overflow-hidden shadow-sm hover:shadow-xl transition"
                         >
                             <ProductCard
                                 :msa="msa"
@@ -62,10 +62,10 @@
                             />
                         </svg>
 
-                        <h3 class="mt-2 text-sm font-medium text-gray-900">
+                        <h3 class="mt-2 text-lg font-medium text-gray-900">
                             Whoops!
                         </h3>
-                        <p class="mt-3 text-sm text-gray-500">
+                        <p class="mt-3 text-lg text-gray-500">
                             Looks like we don't have any MSA's from there. If
                             you know any, help them sign up!
                         </p>

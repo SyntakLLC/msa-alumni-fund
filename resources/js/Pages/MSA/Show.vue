@@ -32,10 +32,14 @@
                     </template>
 
                     <template #action>
-                        <primary-button> Support this MSA </primary-button>
+                        <primary-button>
+                            Support this community today
+                        </primary-button>
                     </template>
 
-                    <template #expandSectionTitle> Annual Objectives </template>
+                    <template #expandSectionTitle>
+                        What we're trying to do
+                    </template>
                 </product-showcase-layout>
 
                 <related-items-layout :hasItems="nearbyMsas.length">
@@ -46,7 +50,7 @@
                             v-for="msa in nearbyMsas"
                             :key="msa.uuid"
                             :href="route('msa.show', msa.uuid)"
-                            class="hover:scale-95 transition"
+                            class="hover:shadow-xl transition hover:opacity-75"
                         >
                             <related-item :imageUrl="msa.primary_image_url">
                                 <template #title>

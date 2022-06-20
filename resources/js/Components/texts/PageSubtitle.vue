@@ -1,5 +1,5 @@
 <template>
-    <p :class="[`text-${color}-600`, 'mt-4 text-base text-gray-500']">
+    <p :class="[`text-${color}-600`, 'mt-4 text-lg text-gray-500']">
         <slot />
     </p>
 </template>

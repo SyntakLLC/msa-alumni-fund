@@ -59,15 +59,15 @@
 
                 <div class="mt-3">
                     <h2 class="sr-only">Product information</h2>
-                    <p class="font-serif text-3xl text-gray-900">
+                    <p class="text-2xl text-gray-900">
                         <slot name="subtitle" />
                     </p>
                 </div>
 
                 <!-- Reviews -->
-                <div class="mt-3">
+                <!-- <div class="mt-3">
                     <slot name="reviews" />
-                </div>
+                </div> -->
 
                 <div class="mt-6">
                     <h3 class="sr-only">Description</h3>
@@ -114,7 +114,7 @@
                                             open
                                                 ? 'text-brand-600'
                                                 : 'text-gray-900',
-                                            'text-sm font-medium',
+                                            'text-lg font-medium',
                                         ]"
                                     >
                                         <slot name="expandSectionTitle" />
@@ -135,7 +135,7 @@
                             </h3>
                             <DisclosurePanel
                                 as="div"
-                                class="pb-6 prose prose-sm"
+                                class="pb-6 prose prose-md"
                             >
                                 <ul role="list">
                                     <li

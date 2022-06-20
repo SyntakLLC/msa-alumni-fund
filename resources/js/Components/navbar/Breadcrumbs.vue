@@ -8,7 +8,7 @@
                 <li
                     v-for="(item, idx) in numOfItems"
                     :key="idx"
-                    class="text-sm"
+                    class="text-md"
                 >
                     <div
                         v-if="idx + 1 !== numOfItems"
@@ -16,7 +16,7 @@
                     >
                         <Link
                             :href="homeRoute"
-                            class="mr-4 text-sm font-medium text-gray-900"
+                            class="mr-4 text-md font-medium text-gray-900"
                         >
                             <slot :name="idx + 1" />
                         </Link>
@@ -55,7 +55,7 @@
                     <div class="flex items-center">
                         <Link
                             :href="route('msa.index')"
-                            class="mr-4 text-sm font-medium text-gray-900"
+                            class="mr-4 text-md font-medium text-gray-900"
                         >
                             Muslim Student Associations
                         </Link>
@@ -72,7 +72,7 @@
                         </svg>
                     </div>
                 </li>
-                <li class="text-sm">
+                <li class="text-md">
                     <p
                         aria-current="page"
                         class="font-medium text-gray-500 hover:text-gray-600"

@@ -61,7 +61,7 @@ export default {
     },
     data() {
         return {
-            style: "shadow-sm max-w-xs flex-1 border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-white hover:bg-brand-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-brand-500 sm:w-full hover:scale-95 transition",
+            style: "shadow-sm max-w-xs flex-1 border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-white hover:bg-brand-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-brand-500 sm:w-full hover:shadow-xl transition",
         };
     },
     computed: {
@@ -71,14 +71,14 @@ export default {
             }
 
             if (this.color == "white") {
-                return `bg-white hover:bg-gray-200 text-gray-900`;
+                return `bg-white hover:bg-gray-200 text-gray-900 border border-gray-200 shadow-sm`;
             }
 
             if (this.color == "black") {
                 return `bg-black hover:bg-gray-800 text-white`;
             }
 
-            return `bg-${this.color}-600 hover:bg-${this.color}-700`;
+            return `bg-${this.color}-600 hover:bg-${this.color}-500`;
         },
         padding() {
             switch (this.size) {

@@ -4,7 +4,7 @@
             <div class="max-w-2xl mx-auto px-4 lg:max-w-none">
                 <div class="max-w-3xl">
                     <h2
-                        class="font-serif text-4xl font-extrabold tracking-tight text-gray-900"
+                        class="font-sans text-4xl font-extrabold tracking-tight text-gray-900"
                     >
                         <slot name="title" />
                     </h2>

@@ -7,6 +7,6 @@
         @apply rounded-lg border border-gray-200;
     }
     .hero-text {
-        @apply text-4xl sm:text-6xl xl:text-6xl text-gray-800 tracking-tight font-extrabold;
+        @apply text-4xl sm:text-6xl lg:text-7xl text-gray-800 tracking-tight font-extrabold;
     }
 }
